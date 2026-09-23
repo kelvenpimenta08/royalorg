@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard Redes Sociais · Royal · Keepads</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#00CA9E; --green-d:#00a884; --green-soft:#e6faf5;
+  --ink:#0D0D0D; --txt:#0D0D0D; --mute:#6b7280; --line:#e8ebef;
+  --bg:#ffffff; --panel:#ffffff; --panel2:#f7f9fb; --red:#ef5b4c; --red-soft:#fdeae7;
+  --amber:#b8860b; --amber-soft:#fff6dd;
+  --ig:#C13584; --fb:#1877F2;
+  --u1:#00CA9E; --u2:#1d7fd4; --u3:#b8860b; --u4:#9b59b6;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:'Poppins',system-ui,sans-serif}
+.wrap{max-width:1240px;margin:0 auto;padding:34px 26px 60px}
+.head{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:16px;border-bottom:2px solid var(--ink);padding-bottom:22px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.logo{font-size:20px;font-weight:800;color:var(--ink);letter-spacing:-.5px}
+.logo b{color:var(--green)}
+.logo .dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--green);margin-left:1px}
+.tagline{font-size:10px;color:var(--mute);letter-spacing:2px;text-transform:uppercase;border-left:1px solid var(--line);padding-left:12px}
+.head h1{font-size:25px;font-weight:700;letter-spacing:-.5px}
+.head h1 b{color:var(--green-d)}
+.eyebrow{font-size:11px;letter-spacing:3px;color:var(--green-d);text-transform:uppercase;font-weight:700;margin-bottom:7px}
+.sub{color:var(--mute);font-size:13px;margin-top:5px}
+.tag{font-size:11px;color:var(--green-d);border:1.5px solid var(--green);padding:6px 14px;border-radius:20px;background:var(--green-soft);font-weight:600}
+
+.unitbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:14px 18px;margin-bottom:12px}
+.unitbar .flbl{font-size:11px;color:#9aa3ad;text-transform:uppercase;letter-spacing:1.4px;font-weight:700}
+.uchip{background:transparent;border:1px solid #33383d;font-family:inherit;font-size:12.5px;font-weight:600;color:#d7dbe0;padding:8px 16px;border-radius:9px;cursor:pointer;transition:.15s}
+.uchip:hover{border-color:var(--green);color:#fff}
+.uchip.active{background:var(--green);color:#04120f;border-color:var(--green)}
+.uchip.ecom{border-left:3px solid var(--green);margin-left:8px}
+.uchip.ecom.active{border-left-color:#04120f}
+.filterbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:22px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 10px rgba(13,13,13,.05)}
+.filterbar .flbl{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1.4px;font-weight:700}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--line);font-family:inherit;font-size:12.5px;font-weight:600;color:var(--mute);padding:8px 16px;border-radius:9px;cursor:pointer;transition:.15s}
+.chip:hover{color:var(--ink);border-color:var(--green)}
+.chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.fnow{margin-left:auto;font-size:12px;color:var(--green-d);font-weight:700;background:var(--green-soft);border:1px solid var(--green);padding:6px 14px;border-radius:20px;white-space:nowrap}
+
+.tabs{display:flex;gap:8px;margin-bottom:26px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.tab{background:none;border:none;color:var(--mute);font-size:13px;font-weight:600;padding:12px 20px;cursor:pointer;border-bottom:3px solid transparent;transition:.15s;font-family:inherit}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);border-bottom-color:var(--green)}
+.view{display:none}.view.active{display:block;animation:fade .3s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:14px;margin-bottom:14px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 1px 3px rgba(13,13,13,.04)}
+.kpi .lbl{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:1.2px;font-weight:600}
+.kpi .val{font-size:28px;font-weight:800;margin-top:8px;letter-spacing:-.5px;color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi .val.green{color:var(--green-d)}
+.kpi .meta{font-size:11px;color:var(--mute);margin-top:5px}
+.grid{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;margin-top:18px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px;box-shadow:0 1px 3px rgba(13,13,13,.04)}
+.card.full{grid-column:1/-1}
+.card h3{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink);margin-bottom:4px;font-weight:700}
+.card .h-sub{font-size:11px;color:var(--mute);margin-bottom:18px}
+.funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin-top:4px}
+.fst{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center}
+.fst .fl{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--mute);font-weight:700;line-height:1.4;min-height:26px}
+.fst .fv{font-size:29px;font-weight:800;margin:9px 0 4px;letter-spacing:-.5px;font-variant-numeric:tabular-nums}
+.fst .fd{font-size:11px;color:var(--mute);line-height:1.45;min-height:46px}
+.fst .fr{font-size:10px;font-weight:700;padding:6px 10px;border-radius:8px;margin-top:12px;letter-spacing:.3px}
+.ok .fv{color:var(--green-d)} .ok .fr{background:var(--green-soft);color:var(--green-d)} .ok{border-top:3px solid var(--green)}
+.bad .fv{color:var(--red)} .bad .fr{background:var(--red-soft);color:var(--red)} .bad{border-top:3px solid var(--red)}
+.mid .fv{color:var(--amber)} .mid .fr{background:var(--amber-soft);color:var(--amber)} .mid{border-top:3px solid var(--amber)}
+.formula{background:var(--ink);border-radius:12px;padding:15px 20px;margin-top:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center}
+.formula span{font-size:11.5px;color:#e8ebef;letter-spacing:.6px;font-weight:600}
+.formula b{color:var(--green)}
+.insight{background:var(--green-soft);border:1px solid var(--green);border-radius:16px;padding:22px 24px;margin-top:18px}
+.insight h3{font-size:12px;letter-spacing:2px;color:var(--green-d);text-transform:uppercase;font-weight:700;margin-bottom:10px}
+.insight p{font-size:14px;line-height:1.65;color:#1a3d35;margin-bottom:10px}
+.insight p:last-child{margin-bottom:0}
+.insight b{color:var(--green-d)}
+.note{font-size:11.5px;color:var(--mute);line-height:1.6;margin-top:14px;padding:14px 16px;background:var(--panel2);border-radius:10px;border-left:3px solid var(--amber)}
+.note b{color:var(--amber)}
+.note.blue{border-left-color:var(--fb)} .note.blue b{color:var(--fb)}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;color:var(--mute);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:1px;padding:10px 8px;border-bottom:2px solid var(--line)}
+th.r{text-align:right}
+td{padding:11px 8px;border-bottom:1px solid var(--line);color:#374151}
+td.r{text-align:right;font-variant-numeric:tabular-nums}
+tr:hover td{background:var(--green-soft)}
+tr.tot td{background:var(--panel2);font-weight:700;color:var(--ink);border-top:2px solid var(--ink)}
+tr.tot:hover td{background:var(--panel2)}
+.num{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink)}
+.num.g{color:var(--green-d)} .num.r2{color:var(--red)} .num.a{color:var(--amber)}
+.up{color:var(--green-d);font-weight:700;font-size:11px}
+.dn{color:var(--red);font-weight:700;font-size:11px}
+.neu{color:var(--mute);font-weight:600;font-size:11px}
+.tscroll{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.tscroll table{min-width:820px}
+.pill{font-size:10px;padding:3px 10px;border-radius:12px;font-weight:600;white-space:nowrap;display:inline-block}
+.p1{background:var(--green-soft);color:var(--green-d)}
+.p2{background:#e8f1fe;color:var(--u2)}
+.p3{background:var(--amber-soft);color:var(--u3)}
+.p4{background:#f4e9fb;color:var(--u4)}
+.foot{text-align:center;color:var(--mute);font-size:11px;margin-top:34px;letter-spacing:.5px}
+.foot b{color:var(--green-d)}
+.conc{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:18px}
+.conc .lbl{font-size:11px;color:var(--green);font-weight:700;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:8px}
+.conc p{font-size:13.5px;line-height:1.65;color:#e8ebef;margin-bottom:10px}
+.conc p:last-child{margin-bottom:0}.conc b{color:var(--green)}
+.action{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin-top:6px}
+.act{background:var(--panel2);border:1px solid var(--line);border-left:3px solid var(--green);border-radius:10px;padding:18px}
+.act .d{font-size:10px;color:var(--green-d);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.act .h{font-size:14px;font-weight:600;margin-bottom:7px;color:var(--ink);line-height:1.35}
+.act .p{font-size:12px;color:var(--mute);line-height:1.55}
+.act .imp{font-size:11.5px;color:var(--green-d);font-weight:600;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.warn{border-left-color:var(--red)} .warn .d{color:var(--red)} .warn .imp{color:var(--red)}
+.amber{border-left-color:var(--amber)} .amber .d{color:var(--amber)} .amber .imp{color:var(--amber)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.sp{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:20px;border-top:3px solid var(--green)}
+.sp .t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--mute)}
+.sp .b{font-size:32px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;margin:8px 0 2px}
+.sp .m{font-size:11.5px;color:var(--mute);line-height:1.5}
+@media(max-width:880px){.grid,.grid2,.split{grid-template-columns:1fr}.head h1{font-size:19px}.kpi .val{font-size:23px}.filterbar{position:static}.fnow{margin-left:0}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div>
+      <div class="brand"><span class="logo">keep<b>ads</b><span class="dot"></span></span><span class="tagline">Performance &amp; Estratégia</span></div>
+      <div class="eyebrow">Relatório de Redes Sociais · Instagram + Facebook</div>
+      <h1>Royal <b>Supermercados</b> · 2026</h1>
+      <div class="sub">Meta Business Suite · 4 perfis · Sul Fluminense, Três Rios e Nova Iguaçu</div>
+    </div>
+    <div class="tag" id="tagPer">8 meses analisados</div>
+  </div>
+
+  <div class="unitbar">
+    <span class="flbl">Perfil</span>
+    <div class="chips" id="uchips"></div>
+  </div>
+
+  <div class="filterbar">
+    <span class="flbl">Período</span>
+    <div class="chips" id="chips"></div>
+    <span class="fnow" id="fnow">Todo o período</span>
+  </div>
+
+  <div class="tabs">
+    <button class="tab active" data-v="exec">Visão Geral</button>
+    <button class="tab" data-v="uni">Comparativo entre Perfis</button>
+    <button class="tab" data-v="comp">Comparativo Mensal</button>
+    <button class="tab" data-v="ga">E-commerce</button>
+  </div>
+
+  <!-- VISAO GERAL -->
+  <div class="view active" id="v-exec">
+    <div class="kpis">
+      <div class="kpi"><div class="lbl">Visualizações</div><div class="val green" id="k1"></div><div class="meta" id="k1b"></div></div>
+      <div class="kpi"><div class="lbl">Contas alcançadas</div><div class="val" id="k2"></div><div class="meta">pessoas únicas impactadas</div></div>
+      <div class="kpi"><div class="lbl">Interações</div><div class="val" id="k3"></div><div class="meta">curtidas, coment., salvos e compart.</div></div>
+      <div class="kpi"><div class="lbl">Cliques no link</div><div class="val green" id="k4"></div><div class="meta">tráfego enviado ao destino</div></div>
+      <div class="kpi"><div class="lbl">Visitas ao perfil</div><div class="val" id="k5"></div><div class="meta">média de <span id="k5b"></span>/mês</div></div>
+      <div class="kpi"><div class="lbl">Novos seguidores</div><div class="val green" id="k6"></div><div class="meta" id="k6b"></div></div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Funil de passagem</h3>
+      <div class="h-sub">Cada etapa mostra quanto do volume anterior avançou. A faixa de referência é o intervalo saudável para varejo alimentar no Instagram.</div>
+      <div class="funnel" id="funnel"></div>
+      <div class="formula">
+        <span>ALCANCE <b>&rarr;</b> VISITA AO PERFIL <b>&rarr;</b> CLIQUE NO LINK <b>&rarr;</b> SEGUIDOR</span>
+      </div>
+    </div>
+
+
+
+    <div class="insight"><h3>Leitura executiva</h3><div id="insExec"></div></div>
+    <div class="note" id="noteExec"></div>
+  </div>
+
+  <!-- UNIDADES -->
+  <div class="view" id="v-uni">
+    <div class="card full">
+      <h3>Comparativo entre perfis</h3>
+      <div class="h-sub" id="uniSub">Todos os indicadores no período selecionado</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Perfil</th><th class="r">Seguidores</th><th class="r">Visualizações</th><th class="r">Alcance</th>
+            <th class="r">Interações</th><th class="r">Visitas</th><th class="r">Cliques</th><th class="r">Novos seg.</th>
+          </tr></thead>
+          <tbody id="tbUni"></tbody>
+        </table>
+      </div>
+    </div>
+
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Taxas de passagem por perfil</h3>
+      <div class="h-sub">Mesma régua aplicada às quatro contas</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Perfil</th><th class="r">Alcance &rarr; visita</th><th class="r">Alcance &rarr; interação</th>
+            <th class="r">Visita &rarr; clique</th><th class="r">Visita &rarr; seguidor</th><th class="r">Frequência</th>
+          </tr></thead>
+          <tbody id="tbRate"></tbody>
+          <tr class="ref"><td colspan="6" style="font-size:11px;color:#6b7280;padding:12px 8px">Referência: alcance &rarr; visita 3% a 6% · alcance &rarr; interação 1% a 2% · visita &rarr; clique 8% a 15% · visita &rarr; seguidor 5% a 8% · frequência acima de 8x</td></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="insight"><h3>Leitura dos perfis</h3><div id="insUni"></div></div>
+  </div>
+
+  <!-- COMPARATIVO MENSAL -->
+  <div class="view" id="v-comp">
+    <div class="card full">
+      <h3>Consolidado mês a mês</h3>
+      <div class="h-sub" id="compSub"></div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Mês</th><th class="r">Visualizações</th><th class="r">Alcance</th><th class="r">Interações</th>
+            <th class="r">Visitas</th><th class="r">Cliques</th><th class="r">Novos seg.</th>
+          </tr></thead>
+          <tbody id="tbComp"></tbody>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div class="insight"><h3>O que a variação mostra</h3><div id="insComp"></div></div>
+  </div>
+
+  <!-- GA4 -->
+  <div class="view" id="v-ga">
+    <div class="kpis">
+      <div class="kpi"><div class="lbl">Usuários no site</div><div class="val green" id="g1"></div><div class="meta" id="g1b"></div></div>
+      <div class="kpi"><div class="lbl">Novos usuários</div><div class="val" id="g2"></div><div class="meta" id="g2b"></div></div>
+      <div class="kpi"><div class="lbl">Eventos principais</div><div class="val green" id="g3"></div><div class="meta">conversões configuradas no GA4</div></div>
+      <div class="kpi"><div class="lbl">Contagem de eventos</div><div class="val" id="g4"></div><div class="meta">interações totais no site</div></div>
+      <div class="kpi"><div class="lbl">Tempo médio</div><div class="val" id="g5"></div><div class="meta">por usuário ativo</div></div>
+      <div class="kpi"><div class="lbl">Conversão por mil</div><div class="val" id="g6"></div><div class="meta">eventos principais por 1.000 usuários</div></div>
+    </div>
+
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Qualidade do tráfego por canal</h3>
+      <div class="h-sub">O canal que traz mais gente não é necessariamente o que traz gente que compra</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Canal</th><th class="r">Usuários</th><th class="r">Participação</th><th class="r">Tempo médio</th>
+            <th class="r">Sessões engaj./usuário</th><th class="r">Eventos principais</th><th class="r">Por 1.000 usuários</th>
+          </tr></thead>
+          <tbody id="tbGa"></tbody>
+        </table>
+      </div>
+      <div class="note" id="noteGa"></div>
+    </div>
+
+
+    <div class="insight"><h3>Leitura do e-commerce</h3><div id="insGa"></div></div>
+    <div class="note blue" id="noteGa2"></div>
+  </div>
+
+
+<div id="stub" style="display:none"><div id="c2sub"></div><div id="detSub"></div><div id="tbDet"></div><div id="insDet"></div><div id="acSub"></div><div id="spBox"></div><div id="tbRef"></div><div id="destaques"></div><div id="passos"></div><div id="conc"></div></div>
+  <div class="foot">Relatório produzido pela <b>keepads</b> · Dados: Meta Business Suite · Janeiro a Agosto de 2026 · Valores de alcance conforme arredondamento da própria plataforma</div>
+</div>
+
+<script>
+const M  = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago'];
+const ML = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto'];
+
+const UNITS = {
+  sv: { nome:'Royal Super Você', handle:'@royalsupervoce', base:'206 mil seguidores', cor:'#00CA9E', pill:'p1',
+    views:[9213038,8405389,10568299,10875700,8539755,10236182,8598359,11190792],
+    fb:[0,0,124206,307329,227015,203307,121163,318583],
+    alc:[1800000,1100000,1100000,878100,740200,842600,749900,1000000],
+    int:[42800,47700,52000,77200,75400,56000,50300,80100],
+    cli:[10400,8100,11600,8500,6300,8000,10200,11800],
+    vis:[53400,52400,51100,64700,55300,58500,65500,83000],
+    seg:[3300,2800,3000,3400,3600,3000,3400,4300] },
+  ni: { nome:'Royal Nova Iguaçu', handle:'@royalnovaiguacu', base:'39,1 mil seguidores', cor:'#1d7fd4', pill:'p2',
+    views:[7365180,5337756,5424028,4720430,4391828,3702513,4067352,4746235],
+    fb:[0,0,25421,25356,47366,14529,11288,10898],
+    alc:[1500000,1100000,951000,872400,908000,748800,888000,1100000],
+    int:[12400,9400,16100,20100,34600,15700,15200,20000],
+    cli:[30800,10000,6500,5600,7800,3600,4800,5100],
+    vis:[40100,14900,10200,10700,14500,6700,6500,6600],
+    seg:[17200,3700,1800,1300,2000,782,963,966] },
+  es: { nome:'Royal Estoque', handle:'@royalestoque', base:'73,4 mil seguidores', cor:'#b8860b', pill:'p3',
+    views:[2922645,2388949,2930889,3174778,2949567,2447478,2820168,3130674],
+    fb:[0,0,44010,51323,56057,672135,161747,26603],
+    alc:[404500,350700,384100,341600,407600,273100,309300,328100],
+    int:[8500,7800,18100,17200,10900,11800,12900,13500],
+    cli:[1900,1600,2100,1900,2400,1600,2100,2400],
+    vis:[10700,9400,12700,16000,13500,9900,9900,10200],
+    seg:[943,739,1500,1000,892,706,871,1000] },
+  rh: { nome:'Royale Home', handle:'@royalehomee', base:'35,5 mil seguidores', cor:'#9b59b6', pill:'p4',
+    views:[551516,539222,1227987,1559133,661593,1700050,1467961,669440],
+    fb:[0,0,914,1718,910,3058,4109,5230],
+    alc:[89600,104300,387100,547100,138000,261400,219400,118800],
+    int:[1200,1200,3800,4600,7300,2500,3100,2400],
+    cli:[286,348,2000,4700,1900,4200,2300,1900],
+    vis:[1900,1500,4400,7000,4000,6400,4800,4300],
+    seg:[210,196,587,976,553,759,399,455] }
+};
+const GA = {
+  dir:{nome:'Direct',cor:'#0D0D0D',
+    tot:[10688,9452,10420,10913,9498,7800,7824,8549], novos:[6938,5993,6626,6930,5873,4657,4596,5004],
+    evp:[1388,1463,1364,1210,1097,1330,1411,1442], tempo:[144.5,165.4,155.0,132.4,171.5,170.4,188.6,172.9], ses:[1.05,1.11,1.14,1.02,1.12,1.22,1.24,1.23],
+    ev:[224929,221980,237085,222634,231624,263770,286688,285617]},
+  os:{nome:'Organic Search',cor:'#00CA9E',
+    tot:[5386,5179,6320,6887,6069,5697,5892,5633], novos:[4479,4296,5387,5771,5044,4758,4911,4678],
+    evp:[719,583,634,585,380,590,578,596], tempo:[167.6,178.8,170.8,135.7,141.5,149.6,143.7,143.2], ses:[1.17,1.16,1.20,1.10,1.10,1.10,1.14,1.05],
+    ev:[118197,111070,139743,130296,113752,155895,155849,149839]},
+  ps:{nome:'Paid Social',cor:'#ef5b4c',
+    tot:[8138,8209,9164,9870,9652,3977,4129,4757], novos:[7983,8027,8924,9606,9507,3888,4026,4611],
+    evp:[0,3,2,4,0,5,11,0], tempo:[3.5,4.6,3.6,2.5,2.9,4.1,4.5,3.4], ses:[0.17,0.20,0.17,0.16,0.16,0.10,0.10,0.09],
+    ev:[28478,29493,32589,34675,33774,13940,14871,16721]},
+  osoc:{nome:'Organic Social',cor:'#C13584',
+    tot:[3227,3046,4013,3699,4429,1446,889,905], novos:[3007,2823,3797,3469,4201,1288,728,721],
+    evp:[5,28,47,39,6,14,46,27], tempo:[9.9,17.8,13.5,13.7,10.5,17.4,67.2,39.6], ses:[0.36,0.36,0.33,0.31,0.33,0.50,0.90,0.80],
+    ev:[15924,17174,21763,20011,22064,10967,13970,10398]},
+  ref:{nome:'Referral',cor:'#1d7fd4',
+    tot:[377,297,327,307,904,859,1073,1251], novos:[107,84,101,106,765,696,860,961],
+    evp:[0,14,13,12,0,2,12,31], tempo:[23.5,40.4,46.4,59.9,23.9,19.6,16.9,25.2], ses:[0.85,0.87,0.81,0.87,0.57,0.63,0.65,0.74],
+    ev:[3134,2775,3638,3325,6947,7472,8906,11545]},
+  out:{nome:'Outros canais',cor:'#b8860b',
+    tot:[479,309,284,507,310,259,239,299], novos:[456,290,268,494,292,257,228,301],
+    evp:[1,2,2,1,0,3,2,0], tempo:[35.3,47.4,11.4,19.0,19.5,25.0,26.1,12.3], ses:[0.40,0.40,0.30,0.30,0.30,0.30,0.30,0.30],
+    ev:[2806,2026,1191,2587,1416,1432,1470,1490]}
+};
+const GK = Object.keys(GA);
+const UK = Object.keys(UNITS);
+const K = ['views','fb','alc','int','cli','vis','seg'];
+const ALL = {}; K.forEach(k=>ALL[k]=M.map((_,i)=>UK.reduce((s,u)=>s+UNITS[u][k][i],0)));
+
+let sel = M.map((_,i)=>i);
+let unit = 'all';
+const D = () => (unit==='all'||unit==='ga') ? ALL : UNITS[unit];
+const uName = () => (unit==='all'||unit==='ga') ? 'Consolidado' : UNITS[unit].nome;
+const uCor = () => (unit==='all'||unit==='ga') ? '#00CA9E' : UNITS[unit].cor;
+
+const fmt = n => {
+  if(n>=1000000) return (n/1000000).toFixed(1).replace('.',',')+' mi';
+  if(n>=1000) return (n/1000).toFixed(1).replace('.',',')+' mil';
+  return Math.round(n).toLocaleString('pt-BR');
+};
+const fmtN = n => Math.round(n).toLocaleString('pt-BR');
+const p1 = n => n.toFixed(1).replace('.',',');
+const pctTag = (cur,prev) => {
+  if(!prev) return '';
+  const v=((cur-prev)/prev)*100, cls=v>0?'up':(v<0?'dn':'neu'), s=v>0?'+':'';
+  return '<div class="'+cls+'">'+s+p1(v)+'%</div>';
+};
+
+const RATES = [
+  {id:'av', lbl:'Alcance para visita',    num:'vis',  den:'alc', ref:[3,6],  unit:'%',
+   desc:o=>fmt(o.vis)+' visitas em '+fmt(o.alc)+' contas alcançadas.'},
+  {id:'ai', lbl:'Alcance para interação', num:'int',  den:'alc', ref:[1,2],  unit:'%',
+   desc:o=>fmt(o.int)+' interações sobre o alcance do período.'},
+  {id:'vc', lbl:'Visita para clique',     num:'cli',  den:'vis', ref:[8,15], unit:'%',
+   desc:o=>fmtN(o.cli)+' cliques a partir das visitas ao perfil.'},
+  {id:'vs', lbl:'Visita para seguidor',   num:'seg',  den:'vis', ref:[5,8],  unit:'%',
+   desc:o=>fmtN(o.seg)+' novos seguidores a partir das visitas.'},
+  {id:'fq', lbl:'Frequência por pessoa',  num:'views',den:'alc', ref:[8,12], unit:'x', refLabel:'acima de 8x',
+   desc:o=>fmt(o.views)+' exibições no Instagram para '+fmt(o.alc)+' pessoas.'}
+];
+const sum = (D,k) => sel.reduce((s,i)=>s+D[k][i],0);
+const agg = (Dx) => { const o={}; K.forEach(k=>o[k]=sum(Dx,k)); return o; };
+const rate = (o,r) => o[r.den] ? (r.unit==='%' ? o[r.num]/o[r.den]*100 : o[r.num]/o[r.den]) : 0;
+const rateAt = (Dx,r,i) => Dx[r.den][i] ? (r.unit==='%' ? Dx[r.num][i]/Dx[r.den][i]*100 : Dx[r.num][i]/Dx[r.den][i]) : 0;
+const status = (v,r) => v>=r.ref[0] ? 'ok' : (v>=r.ref[0]*0.6 ? 'mid' : 'bad');
+const statusTxt = st => st==='ok'?'Dentro da referência':(st==='mid'?'Abaixo do ideal':'Abaixo da referência');
+const refTxt = r => r.refLabel ? r.refLabel : p1(r.ref[0])+'% a '+p1(r.ref[1])+'%';
+const val = (v,r) => r.unit==='%' ? p1(v)+'%' : p1(v)+'x';
+
+/* ---------- filtros ---------- */
+const chipsEl = document.getElementById('chips');
+M.forEach((m,i)=>{
+  const b=document.createElement('button'); b.className='chip active'; b.textContent=m; b.dataset.i=i;
+  b.onclick=()=>{ const k=sel.indexOf(i);
+    if(k>-1){ if(sel.length===1) return; sel.splice(k,1);} else sel.push(i);
+    sel.sort((a,b)=>a-b); render(); };
+  chipsEl.appendChild(b);
+});
+const uchipsEl = document.getElementById('uchips');
+[['all','Consolidado'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)']].forEach(([k,n])=>{
+  const b=document.createElement('button'); b.className='uchip'+(k==='all'?' active':'')+(k==='ga'?' ecom':''); b.textContent=n; b.dataset.u=k;
+  b.onclick=()=>{ unit=k; render(); };
+  uchipsEl.appendChild(b);
+});
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+  t.classList.add('active'); document.getElementById('v-'+t.dataset.v).classList.add('active');
+});
+
+const set=(id,html)=>{const e=document.getElementById(id); if(e) e.innerHTML=html;};
+const setT=(id,txt)=>{const e=document.getElementById(id); if(e) e.textContent=txt;};
+
+/* ---------- render ---------- */
+function render(){
+  const isGa = unit==='ga';
+  document.querySelectorAll('.tab').forEach(t=>{
+    const gaTab = t.dataset.v==='ga';
+    t.style.display = (isGa === gaTab) ? '' : 'none';
+  });
+  const act = document.querySelector('.tab.active');
+  if(!act || act.style.display==='none'){
+    const alvo = document.querySelector(isGa ? '.tab[data-v="ga"]' : '.tab[data-v="exec"]');
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
+    alvo.classList.add('active');
+    document.getElementById('v-'+alvo.dataset.v).classList.add('active');
+  }
+  document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',sel.includes(+c.dataset.i)));
+  document.querySelectorAll('.uchip').forEach(c=>c.classList.toggle('active',c.dataset.u===unit));
+  const L = sel.map(i=>M[i]);
+  renderGA(L);
+  if(isGa){
+    document.getElementById('fnow').textContent = sel.length===M.length ? 'Todo o período' : (sel.length===1?ML[sel[0]]:L.join(' · '));
+    document.getElementById('tagPer').textContent = sel.length+(sel.length===1?' mês analisado':' meses analisados');
+    return;
+  }
+  const Dx = D(), o = agg(Dx), cor = uCor();
+  document.getElementById('fnow').textContent = sel.length===M.length ? 'Todo o período' : (sel.length===1?ML[sel[0]]:L.join(' · '));
+  document.getElementById('tagPer').textContent = sel.length+(sel.length===1?' mês analisado':' meses analisados');
+
+  /* KPIs */
+  document.getElementById('k1').textContent = fmt(o.views+o.fb);
+  document.getElementById('k1b').textContent = 'Instagram '+fmt(o.views)+' · Facebook '+fmt(o.fb);
+  document.getElementById('k2').textContent = fmt(o.alc);
+  document.getElementById('k3').textContent = fmt(o.int);
+  document.getElementById('k4').textContent = fmt(o.cli);
+  document.getElementById('k5').textContent = fmt(o.vis);
+  document.getElementById('k5b').textContent = fmt(o.vis/sel.length);
+  document.getElementById('k6').textContent = fmt(o.seg);
+  document.getElementById('k6b').textContent = unit==='all' ? 'somados os quatro perfis' : UNITS[unit].handle;
+
+  /* funil */
+  document.getElementById('funnel').innerHTML = RATES.map(r=>{
+    const v=rate(o,r), st=status(v,r);
+    return '<div class="fst '+st+'"><div class="fl">'+r.lbl+'</div><div class="fv">'+val(v,r)+'</div>'+
+      '<div class="fd">'+r.desc(o)+'</div><div class="fr">'+statusTxt(st)+' · '+refTxt(r)+'</div></div>';
+  }).join('');
+
+  /* c1 views + alcance */
+
+  /* c2 divisao */
+  if(unit==='all'){
+    document.getElementById('c2sub').textContent ='Participação de cada perfil no alcance total';
+  } else {
+    document.getElementById('c2sub').textContent ='Instagram contra Facebook nas visualizações';
+  }
+
+  /* ---- comparativo mensal ---- */
+  document.getElementById('compSub').textContent = uName()+' · variação contra o mês anterior dentro do período selecionado';
+  document.getElementById('tbComp').innerHTML = sel.map((i,n)=>{
+    const p = n>0 ? sel[n-1] : null;
+    const cell=(k)=>'<td class="r"><div class="num">'+fmt(Dx[k][i])+'</div>'+(p!==null?pctTag(Dx[k][i],Dx[k][p]):'')+'</td>';
+    return '<tr><td><b>'+ML[i]+'</b></td>'+
+      '<td class="r"><div class="num">'+fmt(Dx.views[i]+Dx.fb[i])+'</div>'+(p!==null?pctTag(Dx.views[i]+Dx.fb[i],Dx.views[p]+Dx.fb[p]):'')+'</td>'+
+      cell('alc')+cell('int')+cell('vis')+cell('cli')+cell('seg')+'</tr>';
+  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+fmt(o.views+o.fb)+'</td><td class="r">'+fmt(o.alc)+'</td><td class="r">'+fmt(o.int)+'</td><td class="r">'+fmt(o.vis)+'</td><td class="r">'+fmt(o.cli)+'</td><td class="r">'+fmt(o.seg)+'</td></tr>';
+
+  const base=sel[0];
+  const idx=k=>sel.map(i=>Dx[k][base]?Dx[k][i]/Dx[k][base]*100:0);
+
+  document.getElementById('tbDet').innerHTML = sel.map(i=>
+    '<tr><td><b>'+ML[i]+'</b></td>'+RATES.map(r=>{
+      const v=rateAt(Dx,r,i), st=status(v,r);
+      return '<td class="r num '+(st==='ok'?'g':(st==='mid'?'a':'r2'))+'">'+val(v,r)+'</td>';
+    }).join('')+'</tr>').join('') +
+    '<tr class="tot"><td>Período</td>'+RATES.map(r=>'<td class="r">'+val(rate(o,r),r)+'</td>').join('')+'</tr>'+
+    '<tr class="ref"><td colspan="6" style="font-size:11px;color:#6b7280;padding:12px 8px">Referência: alcance &rarr; visita 3% a 6% · alcance &rarr; interação 1% a 2% · visita &rarr; clique 8% a 15% · visita &rarr; seguidor 5% a 8% · frequência acima de 8x</td></tr>';
+
+  /* ---- acao ---- */
+  document.getElementById('acSub').textContent = uName()+' · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', '));
+  document.getElementById('spBox').innerHTML =
+    '<div class="sp"><div class="t">Pessoas alcançadas</div><div class="b">'+fmt(o.alc)+'</div><div class="m">Média de '+fmt(o.alc/sel.length)+' por mês. Essa é a base de gente que viu alguma coisa da marca no período.</div></div>'+
+    '<div class="sp"><div class="t">Tráfego gerado</div><div class="b">'+fmt(o.cli)+'</div><div class="m">Cliques no link enviados ao Linktree, e-commerce e app. Média de '+fmt(o.cli/sel.length)+' por mês.</div></div>'+
+    '<div class="sp"><div class="t">Visitas ao perfil</div><div class="b">'+fmt(o.vis)+'</div><div class="m">Pessoas que saíram do feed e foram ver a marca. É o melhor termômetro de interesse ativo.</div></div>'+
+    '<div class="sp"><div class="t">Base conquistada</div><div class="b">'+fmt(o.seg)+'</div><div class="m">Novos seguidores no período. Base que passa a receber oferta sem custo de mídia.</div></div>';
+
+  document.getElementById('tbRef').innerHTML = RATES.map(r=>{
+    const v=rate(o,r), st=status(v,r);
+    return '<tr><td>'+r.lbl+'</td><td class="r num '+(st==='ok'?'g':(st==='mid'?'a':'r2'))+'">'+val(v,r)+'</td>'+
+      '<td class="r" style="color:#6b7280">'+refTxt(r)+'</td><td class="r"><span class="pill '+(st==='ok'?'p1':(st==='mid'?'p3':'p2'))+'">'+statusTxt(st)+'</span></td></tr>';
+  }).join('');
+
+  textos(o,Dx,L);
+}
+
+/* ---------- GA4 ---------- */
+function renderGA(L){
+  const gsum=(c,k)=>sel.reduce((s,i)=>s+GA[c][k][i],0);
+  const tot=GK.reduce((s,c)=>s+gsum(c,'tot'),0);
+  const novos=GK.reduce((s,c)=>s+gsum(c,'novos'),0);
+  const evp=GK.reduce((s,c)=>s+gsum(c,'evp'),0);
+  const ev=GK.reduce((s,c)=>s+gsum(c,'ev'),0);
+  const tempo=GK.reduce((s,c)=>s+sel.reduce((a,i)=>a+GA[c].tempo[i]*GA[c].tot[i],0),0)/tot;
+
+  document.getElementById('g1').textContent =fmt(tot);
+  document.getElementById('g1b').textContent ='média de '+fmt(tot/sel.length)+'/mês';
+  document.getElementById('g2').textContent =fmt(novos);
+  document.getElementById('g2b').textContent =p1(novos/tot*100)+'% do total';
+  document.getElementById('g3').textContent =fmtN(evp);
+  document.getElementById('g4').textContent =fmt(ev);
+  document.getElementById('g5').textContent =Math.round(tempo)+'s';
+  document.getElementById('g6').textContent =p1(evp/tot*1000);
+
+  const ord=GK.slice().sort((a,b)=>gsum(b,'tot')-gsum(a,'tot'));
+  document.getElementById('tbGa').innerHTML = ord.map(c=>{
+    const t=gsum(c,'tot'), e=gsum(c,'evp');
+    const tm=sel.reduce((a,i)=>a+GA[c].tempo[i]*GA[c].tot[i],0)/(t||1);
+    const se=sel.reduce((a,i)=>a+GA[c].ses[i]*GA[c].tot[i],0)/(t||1);
+    const per=e/t*1000;
+    const cls = per>=20?'g':(per>=2?'a':'r2');
+    return '<tr><td><b>'+GA[c].nome+'</b></td><td class="r num">'+fmtN(t)+'</td><td class="r">'+p1(t/tot*100)+'%</td>'+
+      '<td class="r num">'+Math.round(tm)+'s</td><td class="r num">'+se.toFixed(2).replace('.',',')+'</td>'+
+      '<td class="r num">'+fmtN(e)+'</td><td class="r num '+cls+'">'+p1(per)+'</td></tr>';
+  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+fmtN(tot)+'</td><td class="r">100%</td><td class="r">'+Math.round(tempo)+'s</td><td class="r">—</td><td class="r">'+fmtN(evp)+'</td><td class="r">'+p1(evp/tot*1000)+'</td></tr>';
+
+  document.getElementById('noteGa').innerHTML ='<b>Eventos principais</b> são as conversões marcadas dentro do GA4 da propriedade Ecom_Royal. Qual evento está configurado como principal, e se ele representa compra finalizada ou outra etapa, é informação que precisa vir do cliente. Sem isso, o número mede conversão do site, não faturamento.';
+
+  const ps=gsum('ps','tot'), psE=gsum('ps','evp');
+  const dirT=gsum('dir','tot'), dirE=gsum('dir','evp');
+  const osT=gsum('os','tot'), osE=gsum('os','evp');
+  const socT=gsum('osoc','tot'), socE=gsum('osoc','evp');
+  const f=sel[0], l=sel[sel.length-1];
+  const totF=GK.reduce((s,c)=>s+GA[c].tot[f],0), totL=GK.reduce((s,c)=>s+GA[c].tot[l],0);
+  const evpF=GK.reduce((s,c)=>s+GA[c].evp[f],0), evpL=GK.reduce((s,c)=>s+GA[c].evp[l],0);
+
+  document.getElementById('insGa').innerHTML =
+    '<p>O site recebeu <b>'+fmt(tot)+' usuários</b> no período e registrou <b>'+fmtN(evp)+' eventos principais</b>. '+
+    'A conversão está concentrada em dois canais: <b>Direct</b> ('+fmtN(dirE)+' eventos em '+fmtN(dirT)+' usuários) e <b>Organic Search</b> ('+fmtN(osE)+' em '+fmtN(osT)+'). '+
+    'Juntos são '+p1((dirE+osE)/evp*100)+'% de tudo que converte.</p>'+
+    '<p><b>Paid Social é o ponto crítico.</b> Trouxe '+fmtN(ps)+' usuários, '+p1(ps/tot*100)+'% de todo o tráfego do site, e gerou '+fmtN(psE)+' eventos principais. '+
+    'O tempo médio de engajamento é de '+p1(sel.reduce((a,i)=>a+GA.ps.tempo[i]*GA.ps.tot[i],0)/ps)+' segundos e as sessões engajadas por usuário ficam em torno de 0,1. '+
+    'Na prática, esse tráfego entra no site e sai antes de carregar a página. Não é tráfego de compra, é clique.</p>'+
+    '<p><b>Organic Social mudou de comportamento.</b> Caiu de 4.429 usuários em maio para 889 em julho, mas o tempo de engajamento subiu de 10,5s para 67,2s e as sessões engajadas por usuário quase triplicaram. '+
+    'Menos gente, muito mais qualificada. O conteúdo do Instagram passou a levar quem realmente tem intenção, não quem clica por impulso.</p>'+
+    '<p>De '+ML[f]+' para '+ML[l]+', o tráfego total '+(totL>totF?'subiu ':'caiu ')+p1(Math.abs((totL-totF)/totF*100))+'% enquanto os eventos principais '+
+    (evpL>evpF?'subiram ':'caíram ')+p1(Math.abs((evpL-evpF)/evpF*100))+'%. '+
+    (totL<totF&&evpL>=evpF*0.95?'Ou seja: o site perdeu volume e manteve conversão. O tráfego que saiu não era o que convertia.':'')+'</p>';
+
+  document.getElementById('noteGa2').innerHTML ='<b>Lacuna de medição:</b> o Instagram registrou 118 mil cliques no link no período, mas o GA4 registra '+fmtN(socT)+' usuários vindos de Organic Social. '+
+    'A diferença é esperada, porque o Linktree distribui o clique entre e-commerce, app, WhatsApp e páginas de loja, e só a parte que cai no site é contada aqui. '+
+    'Para fechar essa conta e saber quanto do orgânico vira pedido, seria preciso UTM padronizado em cada botão do Linktree e o dado de instalação do app, que vem do cliente.';
+}
+
+/* ---------- textos ---------- */
+function textos(o,Dx,L){
+  const nome=uName(), n=sel.length;
+  const av=rate(o,RATES[0]), ai=rate(o,RATES[1]), vc=rate(o,RATES[2]), vs=rate(o,RATES[3]), fq=rate(o,RATES[4]);
+  const mx=k=>{let b=sel[0];sel.forEach(i=>{if(Dx[k][i]>Dx[k][b])b=i});return b};
+  const mn=k=>{let b=sel[0];sel.forEach(i=>{if(Dx[k][i]<Dx[k][b])b=i});return b};
+  const bAlc=mx('alc'), pVis=mx('vis'), pCli=mx('cli'), wAlc=mn('alc');
+  const fbShare=(o.views+o.fb)?o.fb/(o.views+o.fb)*100:0;
+
+  document.getElementById('insExec').innerHTML =
+    '<p>No período, '+nome+' alcançou <b>'+fmt(o.alc)+' pessoas</b> e gerou <b>'+fmt(o.vis)+' visitas ao perfil</b> e <b>'+fmt(o.cli)+' cliques no link</b>. '+
+    'De cada 100 pessoas alcançadas, <b>'+p1(av)+'</b> foram ver o perfil, e de cada 100 que visitaram, <b>'+p1(vc)+'</b> clicaram no link. '+
+    'A base cresceu em <b>'+fmt(o.seg)+' seguidores</b>.</p>'+
+    '<p>A frequência ficou em <b>'+p1(fq)+' exibições por pessoa alcançada</b>. Em supermercado isso é o que faz preço virar memória: '+
+    (fq>=8?'o mesmo cliente está vendo a marca várias vezes por mês, que é exatamente o comportamento que sustenta top of mind de oferta.':
+    'ainda há espaço para aumentar repetição sobre a mesma base, que é o que consolida lembrança de preço.')+'</p>'+
+    '<p>Melhor mês de alcance: <b>'+ML[bAlc]+'</b> ('+fmt(Dx.alc[bAlc])+'). Pico de visitas ao perfil em <b>'+ML[pVis]+'</b> e de cliques em <b>'+ML[pCli]+'</b>. '+
+    'Mês mais fraco de alcance: <b>'+ML[wAlc]+'</b> ('+fmt(Dx.alc[wAlc])+').</p>';
+
+  let nExec = '<b>Como ler este painel:</b> alcance é gente única impactada, visualizações é quantas vezes o conteúdo apareceu. '+
+    'Os dois medem coisas diferentes, e alcance caindo com visualização estável significa mais repetição sobre a mesma base, não menos entrega. '+
+    'Os valores de alcance vêm arredondados pelo próprio Business Suite.';
+  if(unit==='all'||unit==='ni') nExec += '<br><br><b>Janeiro do Nova Iguaçu:</b> 30,8 mil cliques, 40,1 mil visitas e 17,2 mil seguidores novos em um único mês, num perfil de 39,1 mil. '+
+    'O volume tem comportamento de ação com incentivo, não de conteúdo de rotina. A confirmação do que foi precisa vir do cliente. '+
+    'Enquanto isso não estiver confirmado, janeiro não deve ser usado como base de comparação para os meses seguintes.';
+  document.getElementById('noteExec').innerHTML = nExec;
+
+  /* perfis */
+  const rk = UK.map(u=>({u,nome:UNITS[u].nome,x:agg(UNITS[u])}));
+  const melhorVC = rk.slice().sort((a,b)=>rate(b.x,RATES[2])-rate(a.x,RATES[2]))[0];
+  const melhorAV = rk.slice().sort((a,b)=>rate(b.x,RATES[0])-rate(a.x,RATES[0]))[0];
+  const maiorAlc = rk.slice().sort((a,b)=>b.x.alc-a.x.alc)[0];
+  const piorVC = rk.slice().sort((a,b)=>rate(a.x,RATES[2])-rate(b.x,RATES[2]))[0];
+  document.getElementById('insUni').innerHTML =
+    '<p><b>'+maiorAlc.nome+'</b> concentra o maior volume de alcance ('+fmt(maiorAlc.x.alc)+'), o que é esperado pelo tamanho da base. '+
+    'Mas volume e eficiência são coisas diferentes: em conversão de visita em clique, quem lidera é <b>'+melhorVC.nome+'</b>, com '+p1(rate(melhorVC.x,RATES[2]))+'.</p>'+
+    '<p>Em alcance para visita ao perfil, <b>'+melhorAV.nome+'</b> é o mais eficiente ('+p1(rate(melhorAV.x,RATES[0]))+'), ou seja, entrega o conteúdo que mais desperta vontade de conhecer a marca. '+
+    'Na ponta oposta, <b>'+piorVC.nome+'</b> tem '+p1(rate(piorVC.x,RATES[2]))+' de visita para clique: o perfil atrai, mas o destino do link converte menos. Esse é o ponto de ajuste mais barato de resolver, porque não depende de alcance novo.</p>'+
+    '<p>A leitura prática: o perfil com mais eficiência é o modelo de conteúdo a replicar nos outros. Formato, frequência e tipo de oferta que funcionam nele são a referência para padronizar a operação das quatro contas.</p>';
+
+  /* comparativo */
+  const f=sel[0], l=sel[sel.length-1];
+  const varP=(k)=>Dx[k][f]?((Dx[k][l]-Dx[k][f])/Dx[k][f]*100):0;
+  const txtVar=(k,nm)=>{const v=varP(k); return nm+' '+(v>0?'subiu ':'caiu ')+p1(Math.abs(v))+'%';};
+  document.getElementById('insComp').innerHTML =
+    '<p>Comparando <b>'+ML[f]+'</b> com <b>'+ML[l]+'</b> em '+nome+': '+txtVar('alc','alcance')+', '+txtVar('vis','visitas ao perfil')+', '+
+    txtVar('cli','cliques no link')+' e '+txtVar('seg','novos seguidores')+'.</p>'+
+    '<p>O gráfico de índice 100 existe para separar volume de eficiência. Quando alcance e visitas andam em direções diferentes, o conteúdo mudou de qualidade, não só de entrega. '+
+    'Quando os dois caem juntos, é distribuição. Quando cliques caem com visitas estáveis, o problema está no destino do link, não no conteúdo.</p>';
+
+  /* detalhamento */
+  const fqs=sel.map(i=>rateAt(Dx,RATES[4],i));
+  const fqIni=fqs[0], fqFim=fqs[fqs.length-1];
+  let dTxt='<p>A frequência saiu de <b>'+p1(fqIni)+'x</b> em '+ML[f]+' para <b>'+p1(fqFim)+'x</b> em '+ML[l]+'. '+
+    (fqFim>fqIni?'A marca está aparecendo mais vezes para menos gente, o que reforça lembrança de preço mas sinaliza teto de alcance novo.':
+    'A marca está distribuindo para mais gente diferente, o que amplia topo mas dilui repetição.')+'</p>'+
+    '<p>Alcance para interação fechou o período em <b>'+p1(ai)+'</b>, contra referência de 1% a 2%. '+
+    (ai>2?'Está bem acima do padrão de mercado: o conteúdo não só aparece, ele provoca reação. Esse é o ativo mais forte da operação e o que barateia qualquer campanha paga construída em cima desses posts.':'')+'</p>';
+  if(unit==='all'||unit==='es') dTxt+='<p><b>Junho no Royal Estoque:</b> o Facebook saltou de 56 mil para 672 mil visualizações em um mês, 21% do total da conta, e voltou a cair depois. '+
+    'Nos demais meses o FB do Estoque fica entre 25 e 160 mil. Vale confirmar com o cliente se houve impulsionamento ou conteúdo específico naquele mês.</p>';
+  document.getElementById('insDet').innerHTML = dTxt;
+
+  /* destaques e passos */
+  document.getElementById('destaques').innerHTML =
+    '<div class="act"><div class="d">Ponto forte</div><div class="h">Engajamento muito acima da referência</div>'+
+    '<div class="p">Alcance para interação em '+p1(ai)+', contra faixa de mercado de 1% a 2%. O conteúdo de oferta gera reação, não apenas impressão.</div>'+
+    '<div class="imp">Conteúdo com tração orgânica é a base mais barata para impulsionamento</div></div>'+
+    '<div class="act"><div class="d">Ponto forte</div><div class="h">Tráfego consistente para o link</div>'+
+    '<div class="p">'+fmt(o.cli)+' cliques no período, com '+p1(vc)+' de conversão de visita em clique.</div>'+
+    '<div class="imp">É o canal orgânico alimentando e-commerce e app sem custo de mídia</div></div>'+
+    '<div class="act amber"><div class="d">Ponto de atenção</div><div class="h">Alcance novo perdendo fôlego</div>'+
+    '<div class="p">A frequência subiu ao longo do período, sinal de que o conteúdo circula cada vez mais dentro da base atual e menos entre não seguidores.</div>'+
+    '<div class="imp">Sem entrada de público novo, o teto de crescimento chega</div></div>'+
+    '<div class="act warn"><div class="d">Ponto de atenção</div><div class="h">Eficiência desigual entre perfis</div>'+
+    '<div class="p">A diferença de conversão entre a melhor e a pior conta mostra que há padrão de conteúdo funcionando em um perfil e não replicado nos outros.</div>'+
+    '<div class="imp">Ganho disponível sem aumentar produção nem verba</div></div>';
+
+  document.getElementById('passos').innerHTML =
+    '<div class="act"><div class="d">Prioridade 1</div><div class="h">Mapear e replicar os 3 posts de maior alcance de cada perfil</div>'+
+    '<div class="p">Levantar os conteúdos com melhor desempenho orgânico dos últimos 30 dias e refazer o formato nas outras contas, adaptando preço e loja.</div>'+
+    '<div class="imp">Custo de aquisição cai quando o ponto de partida é conteúdo com tração real</div></div>'+
+    '<div class="act"><div class="d">Prioridade 2</div><div class="h">Impulsionar o conteúdo que já engaja em vez de criar campanha do zero</div>'+
+    '<div class="p">Com engajamento orgânico acima da referência, o boost direcionado sobre esses posts entrega mais barato do que criativo novo sem histórico.</div>'+
+    '<div class="imp">Aproveita sinal de relevância que o algoritmo já reconheceu</div></div>'+
+    '<div class="act"><div class="d">Prioridade 3</div><div class="h">Padronizar o destino do link entre as quatro contas</div>'+
+    '<div class="p">A conta com pior conversão de visita em clique indica atrito no Linktree. Alinhar ordem dos botões, nomenclatura e o que aparece primeiro.</div>'+
+    '<div class="imp">Ganho direto em tráfego sem depender de alcance novo</div></div>'+
+    '<div class="act amber"><div class="d">Prioridade 4</div><div class="h">Puxar público novo com conteúdo não promocional</div>'+
+    '<div class="p">Bastidor de açougue, padaria e hortifrúti, receita com produto da loja e depoimento de cliente circulam melhor fora da base do que encarte puro.</div>'+
+    '<div class="imp">Reduz a dependência de frequência sobre o mesmo público</div></div>';
+
+  document.getElementById('conc').innerHTML =
+    '<p>As quatro contas somam <b>'+fmt(agg(ALL).alc)+' pessoas alcançadas</b> e <b>'+fmt(agg(ALL).cli)+' cliques no link</b> no período, '+
+    'com engajamento bem acima da referência de mercado. O orgânico do Royal não é vitrine, é canal de distribuição de oferta com volume real.</p>'+
+    '<p>O gargalo não é conteúdo, é <b>renovação de público</b>. A frequência crescente mostra que a marca está falando cada vez mais com quem já segue. '+
+    'O próximo ciclo precisa equilibrar encarte, que sustenta a base, com conteúdo de alcance, que traz gente nova.</p>'+
+    '<p>Para transformar esse tráfego em leitura de venda, é preciso o dado de pedidos no e-commerce, instalações do app e movimento de loja no mesmo período. '+
+    '<b>Essa informação vem do cliente</b>, não da plataforma de anúncios, e sem ela o painel mede alcance e tráfego, não faturamento.</p>';
+}
+
+render();
+</script>
+</body>
+</html>
