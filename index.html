@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -14,7 +13,7 @@
   --bg:#ffffff; --panel:#ffffff; --panel2:#f7f9fb; --red:#ef5b4c; --red-soft:#fdeae7;
   --amber:#b8860b; --amber-soft:#fff6dd;
   --ig:#C13584; --fb:#1877F2;
-  --u1:#00CA9E; --u2:#1d7fd4; --u3:#b8860b; --u4:#9b59b6;
+  --u1:#00CA9E; --u2:#1d7fd4; --u3:#b8860b; --u4:#9b59b6; --u5:#e8622a;
   box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px);
   padding-bottom:env(safe-area-inset-bottom,0px);
@@ -108,6 +107,7 @@ tr.tot:hover td{background:var(--panel2)}
 .p2{background:#e8f1fe;color:var(--u2)}
 .p3{background:var(--amber-soft);color:var(--u3)}
 .p4{background:#f4e9fb;color:var(--u4)}
+.p5{background:#fdeee7;color:#c74f1c}
 .foot{text-align:center;color:var(--mute);font-size:11px;margin-top:34px;letter-spacing:.5px}
 .foot b{color:var(--green-d)}
 .conc{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:18px}
@@ -316,7 +316,15 @@ const UNITS = {
     int:[1200,1200,3800,4600,7300,2500,3100,2400],
     cli:[286,348,2000,4700,1900,4200,2300,1900],
     vis:[1900,1500,4400,7000,4000,6400,4800,4300],
-    seg:[210,196,587,976,553,759,399,455] }
+    seg:[210,196,587,976,553,759,399,455] },
+  er: { segBase:66500, nome:'Empório Royale', handle:'@emporioroyale', base:'66,5 mil seguidores', cor:'#e8622a', pill:'p5',
+    views:[2205067,1416696,999223,1334565,867763,1223619,1056719,475259],
+    fb:[0,0,1376,3075,3511,4207,2816,1115],
+    alc:[317400,284000,300500,270400,93300,200000,200400,40000],
+    int:[13100,6600,6200,12200,10600,7400,7400,3800],
+    cli:[1500,1700,122,964,270,639,1100,50],
+    vis:[23400,14200,11000,17600,17500,15200,8500,4800],
+    seg:[2400,1200,963,1000,951,782,717,599] }
 };
 const GA = {
   dir:{nome:'Direct',cor:'#0D0D0D',
