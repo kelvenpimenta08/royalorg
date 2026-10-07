@@ -1,9 +1,10 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Dashboard Redes Sociais · Royal · Keepads</title>
+<title>Dashboard Royal · Keepads</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -135,9 +136,9 @@ tr.tot:hover td{background:var(--panel2)}
   <div class="head">
     <div>
       <div class="brand"><span class="logo">keep<b>ads</b><span class="dot"></span></span><span class="tagline">Performance &amp; Estratégia</span></div>
-      <div class="eyebrow">Relatório de Redes Sociais · Instagram + Facebook</div>
+      <div class="eyebrow">Relatório de Mídia · Instagram, Facebook, E-commerce e YouTube</div>
       <h1>Royal <b>Supermercados</b> · 2026</h1>
-      <div class="sub">Meta Business Suite · 4 perfis · Sul Fluminense, Três Rios e Nova Iguaçu</div>
+      <div class="sub">5 perfis sociais · e-commerce · canal de YouTube · Sul Fluminense, Três Rios e Nova Iguaçu</div>
     </div>
     <div class="tag" id="tagPer">8 meses analisados</div>
   </div>
@@ -158,6 +159,7 @@ tr.tot:hover td{background:var(--panel2)}
     <button class="tab" data-v="uni">Comparativo entre Perfis</button>
     <button class="tab" data-v="comp">Comparativo Mensal</button>
     <button class="tab" data-v="ga">E-commerce</button>
+    <button class="tab" data-v="yta">YouTube Ads</button>
   </div>
 
   <!-- VISAO GERAL -->
@@ -276,8 +278,68 @@ tr.tot:hover td{background:var(--panel2)}
   </div>
 
 
+
+  <!-- YOUTUBE ADS -->
+  <div class="view" id="v-yta">
+    <div class="kpis">
+      <div class="kpi"><div class="lbl">Investimento</div><div class="val" id="a1"></div><div class="meta" id="a1b"></div></div>
+      <div class="kpi"><div class="lbl">Impressões</div><div class="val" id="a3"></div><div class="meta">exibições do anúncio</div></div>
+      <div class="kpi"><div class="lbl">TrueView</div><div class="val green" id="a2"></div><div class="meta">visualizações qualificadas entregues</div></div>
+      <div class="kpi"><div class="lbl">Custo por TrueView</div><div class="val green" id="a4"></div><div class="meta">CPV médio do período</div></div>
+      <div class="kpi"><div class="lbl">Taxa de TrueView</div><div class="val" id="a5"></div><div class="meta">TrueView sobre impressões</div></div>
+      <div class="kpi"><div class="lbl">Vídeo assistido 100%</div><div class="val" id="a6"></div><div class="meta">média do período</div></div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Investimento e entrega mês a mês</h3>
+      <div class="h-sub" id="ytaSub"></div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Mês</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">TrueView</th>
+            <th class="r">CPV</th><th class="r">Taxa de TrueView</th><th class="r">Assistiu 100%</th>
+          </tr></thead>
+          <tbody id="tbYta"></tbody>
+        </table>
+      </div>
+      <div class="note blue"><b>O que é TrueView:</b> é a visualização que o Google cobra, contada quando a pessoa assiste pelo menos 30 segundos do anúncio, o vídeo inteiro se for mais curto, ou interage com ele. Não é o mesmo que impressão, que é só a exibição na tela. Também não é a mesma métrica de visualização que o YouTube Studio mostra para o canal, por isso aqui aparece sempre como TrueView.</div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Desempenho por praça</h3>
+      <div class="h-sub">Onde o investimento foi aplicado e quanto TrueView cada praça entregou no período selecionado</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Praça</th><th class="r">Investimento</th><th class="r">Participação</th><th class="r">Impressões</th>
+            <th class="r">TrueView</th><th class="r">CPV</th><th class="r">Taxa de TrueView</th>
+          </tr></thead>
+          <tbody id="tbPraca"></tbody>
+        </table>
+      </div>
+      <div class="note" id="notaPraca"></div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Desempenho por objetivo de campanha</h3>
+      <div class="h-sub">Vídeo, Alcance e Frequência compram coisas diferentes e precisam ser lidos contra o próprio objetivo</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Objetivo</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">TrueView</th>
+            <th class="r">CPV</th><th class="r">Taxa de TrueView</th><th class="r">CPM</th>
+          </tr></thead>
+          <tbody id="tbObj"></tbody>
+        </table>
+      </div>
+      <div class="note blue" id="notaObj"></div>
+    </div>
+
+    <div class="insight"><h3>Leitura do YouTube Ads</h3><div id="insYta"></div></div>
+  </div>
+
 <div id="stub" style="display:none"><div id="c2sub"></div><div id="detSub"></div><div id="tbDet"></div><div id="insDet"></div><div id="acSub"></div><div id="spBox"></div><div id="tbRef"></div><div id="destaques"></div><div id="passos"></div><div id="conc"></div></div>
-  <div class="foot">Relatório produzido pela <b>keepads</b> · Dados: Meta Business Suite · Janeiro a Agosto de 2026 · Valores de alcance conforme arredondamento da própria plataforma</div>
+  <div class="foot">Relatório produzido pela <b>keepads</b> · Dados: Meta Business Suite, Google Analytics, Google Ads e YouTube Studio · Janeiro a Agosto de 2026 · Valores de alcance conforme arredondamento da própria plataforma</div>
 </div>
 
 <script>
@@ -352,6 +414,31 @@ const GA = {
     evp:[1,2,2,1,0,3,2,0], tempo:[35.3,47.4,11.4,19.0,19.5,25.0,26.1,12.3], ses:[0.40,0.40,0.30,0.30,0.30,0.30,0.30,0.30],
     ev:[2806,2026,1191,2587,1416,1432,1470,1490]}
 };
+
+/* ---------- YouTube ---------- */
+const YT = {
+  total:[2410364,1880596,1997332,2195325,1868306,1889900,2102597,1712361],
+  ads:  [929109,757672,863486,959105,824030,861286,921449,754066],
+  custo:[18162.17,13779.51,16595.26,17986.34,16601.88,17115.25,16779.05,14374.91],
+  impr: [2480293,1938773,2055127,2265132,1927879,1942905,2170007,1759463],
+  v100: [34.63,36.12,39.59,40.01,40.94,41.89,40.42,39.27]
+};
+const PRACA = {
+  vr:  {nome:'Volta Redonda', custo:[6381,4826,6240,6289,6241,6654,5906,5481], impr:[818305,658554,727477,812065,686786,728128,733252,631036], views:[297391,262830,312458,320344,294529,317205,314372,269791]},
+  bm:  {nome:'Barra Mansa',   custo:[3376,2625,3120,3160,3121,3649,3413,2799], impr:[573432,428499,428700,507468,406773,458477,488888,389116], views:[211811,164401,173592,184527,163449,195598,206951,167916]},
+  ni:  {nome:'Nova Iguaçu',   custo:[4949,3320,3334,4722,3339,2328,3510,2023], impr:[494389,356420,356281,483546,333330,212368,395049,197118], views:[182269,130083,141741,195408,142594,95582,157339,84807]},
+  rmkt:{nome:'Remarketing',   custo:[3456,3008,3901,3902,3902,4484,3951,4072], impr:[594167,495300,542669,569238,500990,543932,552818,542193], views:[237638,200358,235695,258826,223458,252901,242787,231552]}
+};
+const OBJ = {
+  video:  {nome:'Vídeo (view)',      custo:[7374,5328,6661,7576,7000,6695,5857,5474], impr:[701142,550736,603237,689448,593470,529086,552673,459935], views:[381072,329956,382671,422633,374637,354937,368373,297884]},
+  alcance:{nome:'Alcance',           custo:[6721,4969,6034,6693,5701,5861,6712,5478], impr:[1029925,770674,851531,1165434,794905,815137,967509,766870], views:[313215,241127,287290,322370,275086,301828,335487,269300]},
+  freq:   {nome:'Frequência',        custo:[4066,3482,3901,3901,3901,4559,4210,3423], impr:[749226,617363,600359,633188,539504,598682,649825,532658], views:[234822,186589,193525,214102,174307,204521,217589,186882]}
+};
+const PK = Object.keys(PRACA), OK = Object.keys(OBJ);
+const brl = n => 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const brl0 = n => 'R$ '+Math.round(n).toLocaleString('pt-BR');
+const cpv = n => 'R$ '+n.toFixed(3).replace('.',',');
+
 const GK = Object.keys(GA);
 const UK = Object.keys(UNITS);
 const K = ['views','fb','alc','int','cli','vis','seg'];
@@ -359,9 +446,9 @@ const ALL = {}; K.forEach(k=>ALL[k]=M.map((_,i)=>UK.reduce((s,u)=>s+UNITS[u][k][
 
 let sel = M.map((_,i)=>i);
 let unit = 'all';
-const D = () => (unit==='all'||unit==='ga') ? ALL : UNITS[unit];
-const uName = () => (unit==='all'||unit==='ga') ? 'Consolidado' : UNITS[unit].nome;
-const uCor = () => (unit==='all'||unit==='ga') ? '#00CA9E' : UNITS[unit].cor;
+const D = () => UNITS[unit] ? UNITS[unit] : ALL;
+const uName = () => UNITS[unit] ? UNITS[unit].nome : 'Consolidado';
+const uCor = () => UNITS[unit] ? UNITS[unit].cor : '#00CA9E';
 
 const fmt = n => {
   if(n>=1000000) return (n/1000000).toFixed(1).replace('.',',')+' mi';
@@ -407,7 +494,8 @@ M.forEach((m,i)=>{
   chipsEl.appendChild(b);
 });
 const uchipsEl = document.getElementById('uchips');
-[['all','Consolidado'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)']].forEach(([k,n])=>{
+const MODOS=['ga','yta'];
+[['all','Consolidado'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
   const b=document.createElement('button'); b.className='uchip'+(k==='all'?' active':'')+(k==='ga'?' ecom':''); b.textContent=n; b.dataset.u=k;
   b.onclick=()=>{ unit=k; render(); };
   uchipsEl.appendChild(b);
@@ -423,14 +511,14 @@ const setT=(id,txt)=>{const e=document.getElementById(id); if(e) e.textContent=t
 
 /* ---------- render ---------- */
 function render(){
-  const isGa = unit==='ga';
+  const isGa = MODOS.includes(unit);
   document.querySelectorAll('.tab').forEach(t=>{
-    const gaTab = t.dataset.v==='ga';
-    t.style.display = (isGa === gaTab) ? '' : 'none';
+    const modoTab = MODOS.includes(t.dataset.v);
+    t.style.display = (isGa ? t.dataset.v===unit : !modoTab) ? '' : 'none';
   });
   const act = document.querySelector('.tab.active');
   if(!act || act.style.display==='none'){
-    const alvo = document.querySelector(isGa ? '.tab[data-v="ga"]' : '.tab[data-v="exec"]');
+    const alvo = document.querySelector(isGa ? '.tab[data-v="'+unit+'"]' : '.tab[data-v="exec"]');
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
     document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));
     alvo.classList.add('active');
@@ -439,7 +527,7 @@ function render(){
   document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',sel.includes(+c.dataset.i)));
   document.querySelectorAll('.uchip').forEach(c=>c.classList.toggle('active',c.dataset.u===unit));
   const L = sel.map(i=>M[i]);
-  renderGA(L);
+  renderGA(L); renderYTA(L);
   if(isGa){
     document.getElementById('fnow').textContent = sel.length===M.length ? 'Todo o período' : (sel.length===1?ML[sel[0]]:L.join(' · '));
     document.getElementById('tagPer').textContent = sel.length+(sel.length===1?' mês analisado':' meses analisados');
@@ -595,6 +683,66 @@ function renderGA(L){
     'Para fechar essa conta e saber quanto do orgânico vira pedido, seria preciso UTM padronizado em cada botão do Linktree e o dado de instalação do app, que vem do cliente.';
 }
 
+
+/* ---------- YouTube Ads ---------- */
+function renderYTA(L){
+  const S=(arr)=>sel.reduce((a,i)=>a+arr[i],0);
+  const custo=S(YT.custo), impr=S(YT.impr), views=S(YT.ads);
+  const v100=sel.reduce((a,i)=>a+YT.v100[i]*YT.ads[i],0)/(views||1);
+  setT('a1', brl0(custo)); setT('a1b','média de '+brl0(custo/sel.length)+'/mês');
+  setT('a2', fmt(views)); setT('a3', fmt(impr));
+  setT('a4', cpv(custo/(views||1)));
+  setT('a5', p1(views/(impr||1)*100)+'%');
+  setT('a6', p1(v100)+'%');
+  setT('ytaSub','Canal royalsupervoce · visualizações TrueView do Google Ads · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', ')));
+
+  set('tbYta', sel.map(i=>{
+    const c=YT.custo[i], im=YT.impr[i], vw=YT.ads[i];
+    return '<tr><td><b>'+ML[i]+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r num">'+fmt(im)+'</td>'+
+      '<td class="r num g">'+fmt(vw)+'</td><td class="r num">'+cpv(c/vw)+'</td>'+
+      '<td class="r num">'+p1(vw/im*100)+'%</td><td class="r num">'+p1(YT.v100[i])+'%</td></tr>';
+  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+brl0(custo)+'</td><td class="r">'+fmt(impr)+'</td>'+
+    '<td class="r">'+fmt(views)+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td><td class="r">'+p1(v100)+'%</td></tr>');
+
+  const ordP=PK.slice().sort((a,b)=>S(PRACA[b].custo)-S(PRACA[a].custo));
+  set('tbPraca', ordP.map(k=>{
+    const P=PRACA[k], c=S(P.custo), im=S(P.impr), vw=S(P.views);
+    const taxa=vw/(im||1)*100, cls=taxa>=40?'g':(taxa>=30?'a':'r2');
+    return '<tr><td><b>'+P.nome+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r">'+p1(c/custo*100)+'%</td>'+
+      '<td class="r num">'+fmt(im)+'</td><td class="r num">'+fmt(vw)+'</td>'+
+      '<td class="r num">'+cpv(c/(vw||1))+'</td><td class="r num '+cls+'">'+p1(taxa)+'%</td></tr>';
+  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+brl0(custo)+'</td><td class="r">100%</td><td class="r">'+fmt(impr)+'</td><td class="r">'+fmt(views)+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td></tr>');
+
+  set('notaPraca','<b>Três Rios não aparece na tabela porque não teve entrega.</b> As campanhas [YT] [VIDEO] [TRÊS RIOS] e [YT] [ALCANCE] [TRÊS RIOS] estão ativas na conta nos oito meses, com orçamento reservado, mas todos os anúncios dentro delas estão pausados. Resultado: zero impressão e zero investimento em uma praça que tem loja. É a correção mais simples e mais barata da conta.');
+
+  set('tbObj', OK.map(k=>{
+    const O=OBJ[k], c=S(O.custo), im=S(O.impr), vw=S(O.views);
+    const taxa=vw/(im||1)*100, cls=taxa>=50?'g':(taxa>=30?'a':'r2');
+    return '<tr><td><b>'+O.nome+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r num">'+fmt(im)+'</td>'+
+      '<td class="r num">'+fmt(vw)+'</td><td class="r num">'+cpv(c/(vw||1))+'</td>'+
+      '<td class="r num '+cls+'">'+p1(taxa)+'%</td><td class="r num">'+brl(c/(im||1)*1000)+'</td></tr>';
+  }).join(''));
+
+  const ob={}; OK.forEach(k=>{const O=OBJ[k]; ob[k]={c:S(O.custo),im:S(O.impr),vw:S(O.views)};});
+  set('notaObj','<b>Por que o CPM de Alcance é mais baixo:</b> campanha de alcance e de frequência compra exibição barata, é essa a função dela. Campanha de vídeo compra atenção e custa mais por mil impressões, mas entrega taxa de TrueView muito maior. Comparar as três pelo mesmo CPM levaria à conclusão errada de pausar justamente a que mais prende o espectador.');
+
+  const melhorP=ordP.slice().sort((a,b)=>S(PRACA[b].views)/S(PRACA[b].impr)-S(PRACA[a].views)/S(PRACA[a].impr))[0];
+  const piorCPV=ordP.slice().sort((a,b)=>(S(PRACA[b].custo)/S(PRACA[b].views))-(S(PRACA[a].custo)/S(PRACA[a].views)))[0];
+  const f=sel[0], l=sel[sel.length-1];
+  set('insYta',
+    '<p>No período foram investidos <b>'+brl0(custo)+'</b> em YouTube Ads, que entregaram <b>'+fmt(impr)+' impressões</b> e <b>'+fmt(views)+' TrueView</b>, a um CPV de <b>'+cpv(custo/views)+'</b>. '+
+    'Para varejo alimentar isso é barato: o custo de colocar o encarte na frente de uma pessoa que assiste ficou em menos de dois centavos.</p>'+
+    '<p><b>'+PRACA[ordP[0]].nome+'</b> concentra o maior investimento ('+p1(S(PRACA[ordP[0]].custo)/custo*100)+'% do total). '+
+    'Em eficiência de entrega, quem converte melhor impressão em TrueView é <b>'+PRACA[melhorP].nome+'</b> ('+p1(S(PRACA[melhorP].views)/S(PRACA[melhorP].impr)*100)+'), '+
+    'e o CPV mais caro está em <b>'+PRACA[piorCPV].nome+'</b> ('+cpv(S(PRACA[piorCPV].custo)/S(PRACA[piorCPV].views))+').</p>'+
+    '<p>A taxa de vídeo assistido até o fim subiu ao longo do período, de '+p1(YT.v100[0])+' em janeiro para '+p1(YT.v100[7])+' em agosto. '+
+    'Criativo está prendendo mais, não menos. Isso puxa o CPV para baixo sozinho, porque o YouTube cobra melhor quem retém.</p>'+
+    '<p><b>Nova Iguaçu é o ponto de atenção.</b> O investimento caiu de '+brl0(PRACA.ni.custo[0])+' em janeiro para '+brl0(PRACA.ni.custo[7])+' em agosto, '+
+    'queda de '+p1((PRACA.ni.custo[0]-PRACA.ni.custo[7])/PRACA.ni.custo[0]*100)+'%, e o TrueView caiu na mesma proporção. '+
+    'A praça não perdeu desempenho, perdeu verba. Vale confirmar se foi decisão de estratégia ou se a campanha está limitada por orçamento sem que ninguém tenha reajustado.</p>');
+}
+
+
 /* ---------- textos ---------- */
 function textos(o,Dx,L){
   const nome=uName(), n=sel.length;
@@ -699,3 +847,5 @@ render();
 </script>
 </body>
 </html>
+
+</body></html>
