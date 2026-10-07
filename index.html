@@ -48,6 +48,9 @@ body{background:var(--bg);color:var(--txt);font-family:'Poppins',system-ui,sans-
 .chip{background:#fff;border:1px solid var(--line);font-family:inherit;font-size:12.5px;font-weight:600;color:var(--mute);padding:8px 16px;border-radius:9px;cursor:pointer;transition:.15s}
 .chip:hover{color:var(--ink);border-color:var(--green)}
 .chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.mbtn{background:#fff;border:1.5px solid var(--line);font-family:inherit;font-size:12px;font-weight:700;color:var(--mute);padding:7px 16px;border-radius:20px;cursor:pointer;transition:.15s;white-space:nowrap}
+.mbtn:hover{border-color:var(--green);color:var(--ink)}
+.mbtn.on{background:var(--ink);color:var(--green);border-color:var(--ink)}
 .fnow{margin-left:auto;font-size:12px;color:var(--green-d);font-weight:700;background:var(--green-soft);border:1px solid var(--green);padding:6px 14px;border-radius:20px;white-space:nowrap}
 
 .tabs{display:flex;gap:8px;margin-bottom:26px;border-bottom:1px solid var(--line);flex-wrap:wrap}
@@ -68,6 +71,19 @@ body{background:var(--bg);color:var(--txt);font-family:'Poppins',system-ui,sans-
 .card.full{grid-column:1/-1}
 .card h3{font-size:13px;text-transform:uppercase;letter-spacing:1.4px;color:var(--ink);margin-bottom:4px;font-weight:700}
 .card .h-sub{font-size:11px;color:var(--mute);margin-bottom:18px}
+.fnl{margin-top:6px}
+.fnl-step{display:grid;grid-template-columns:190px 1fr 132px;align-items:center;gap:18px}
+.fnl-lbl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.1px;color:var(--mute);line-height:1.4}
+.fnl-lbl span{display:block;text-transform:none;letter-spacing:0;font-weight:400;font-size:11px;color:#9aa3ad;margin-top:3px}
+.fnl-track{display:flex;justify-content:center}
+.fnl-bar{height:54px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:21px;font-variant-numeric:tabular-nums;letter-spacing:-.4px;min-width:90px}
+.fnl-right{text-align:right}
+.fnl-right .pc{font-size:18px;font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1.2}
+.fnl-right .sm{font-size:10.5px;color:var(--mute);margin-top:2px;line-height:1.35}
+.fnl-conn{display:grid;grid-template-columns:190px 1fr 132px;gap:18px;padding:5px 0}
+.fnl-conn .mid{text-align:center;font-size:10.5px;color:var(--green-d);font-weight:700;letter-spacing:.3px}
+.fnl-conn .mid b{color:var(--ink)}
+@media(max-width:880px){.fnl-step,.fnl-conn{grid-template-columns:1fr;gap:6px}.fnl-right{text-align:left}.fnl-conn .mid{text-align:left}}
 .funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:12px;margin-top:4px}
 .fst{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 16px;text-align:center}
 .fst .fl{font-size:9.5px;letter-spacing:1.3px;text-transform:uppercase;color:var(--mute);font-weight:700;line-height:1.4;min-height:26px}
@@ -87,7 +103,7 @@ body{background:var(--bg);color:var(--txt);font-family:'Poppins',system-ui,sans-
 .insight b{color:var(--green-d)}
 .note{font-size:11.5px;color:var(--mute);line-height:1.6;margin-top:14px;padding:14px 16px;background:var(--panel2);border-radius:10px;border-left:3px solid var(--amber)}
 .note b{color:var(--amber)}
-.note.blue{border-left-color:var(--fb)} .note.blue b{color:var(--fb)}
+.note.green{border-left-color:var(--green)} .note.green b{color:var(--green-d)}
 table{width:100%;border-collapse:collapse;font-size:12.5px}
 th{text-align:left;color:var(--mute);font-weight:600;text-transform:uppercase;font-size:10px;letter-spacing:1px;padding:10px 8px;border-bottom:2px solid var(--line)}
 th.r{text-align:right}
@@ -152,6 +168,7 @@ tr.tot:hover td{background:var(--panel2)}
     <span class="flbl">Período</span>
     <div class="chips" id="chips"></div>
     <span class="fnow" id="fnow">Todo o período</span>
+    <button class="mbtn" id="btnMedia">Média mensal</button>
   </div>
 
   <div class="tabs">
@@ -169,24 +186,20 @@ tr.tot:hover td{background:var(--panel2)}
       <div class="kpi"><div class="lbl">Contas alcançadas</div><div class="val" id="k2"></div><div class="meta">pessoas únicas impactadas</div></div>
       <div class="kpi"><div class="lbl">Interações</div><div class="val" id="k3"></div><div class="meta">curtidas, coment., salvos e compart.</div></div>
       <div class="kpi"><div class="lbl">Cliques no link</div><div class="val green" id="k4"></div><div class="meta">tráfego enviado ao destino</div></div>
-      <div class="kpi"><div class="lbl">Visitas ao perfil</div><div class="val" id="k5"></div><div class="meta">média de <span id="k5b"></span>/mês</div></div>
+      <div class="kpi"><div class="lbl">Visitas ao perfil</div><div class="val" id="k5"></div><div class="meta" id="k5m">média de <span id="k5b"></span>/mês</div></div>
       <div class="kpi"><div class="lbl">Novos seguidores</div><div class="val green" id="k6"></div><div class="meta" id="k6b"></div></div>
       <div class="kpi"><div class="lbl">Base de seguidores</div><div class="val" id="k7"></div><div class="meta" id="k7b"></div></div>
     </div>
 
     <div class="card full" style="margin-top:18px">
       <h3>Funil de passagem</h3>
-      <div class="h-sub">Cada etapa mostra quanto do volume anterior avançou. A faixa de referência é o intervalo saudável para varejo alimentar no Instagram.</div>
-      <div class="funnel" id="funnel"></div>
-      <div class="formula">
-        <span>ALCANCE <b>&rarr;</b> VISITA AO PERFIL <b>&rarr;</b> CLIQUE NO LINK <b>&rarr;</b> SEGUIDOR</span>
-      </div>
+      <div class="h-sub">Do alcance até o seguidor: quanto de cada etapa avançou para a seguinte</div>
+      <div class="fnl" id="funnel"></div>
+    </div>
     </div>
 
 
 
-    <div class="insight"><h3>Leitura executiva</h3><div id="insExec"></div></div>
-    <div class="note" id="noteExec"></div>
   </div>
 
   <!-- UNIDADES -->
@@ -221,13 +234,12 @@ tr.tot:hover td{background:var(--panel2)}
       </div>
     </div>
 
-    <div class="insight"><h3>Leitura dos perfis</h3><div id="insUni"></div></div>
   </div>
 
   <!-- COMPARATIVO MENSAL -->
   <div class="view" id="v-comp">
     <div class="card full">
-      <h3>Consolidado mês a mês</h3>
+      <h3>Mês a mês</h3>
       <div class="h-sub" id="compSub"></div>
       <div class="tscroll">
         <table>
@@ -242,7 +254,6 @@ tr.tot:hover td{background:var(--panel2)}
 
 
 
-    <div class="insight"><h3>O que a variação mostra</h3><div id="insComp"></div></div>
   </div>
 
   <!-- GA4 -->
@@ -269,12 +280,9 @@ tr.tot:hover td{background:var(--panel2)}
           <tbody id="tbGa"></tbody>
         </table>
       </div>
-      <div class="note" id="noteGa"></div>
     </div>
 
 
-    <div class="insight"><h3>Leitura do e-commerce</h3><div id="insGa"></div></div>
-    <div class="note blue" id="noteGa2"></div>
   </div>
 
 
@@ -284,11 +292,13 @@ tr.tot:hover td{background:var(--panel2)}
     <div class="kpis">
       <div class="kpi"><div class="lbl">Investimento</div><div class="val" id="a1"></div><div class="meta" id="a1b"></div></div>
       <div class="kpi"><div class="lbl">Impressões</div><div class="val" id="a3"></div><div class="meta">exibições do anúncio</div></div>
-      <div class="kpi"><div class="lbl">TrueView</div><div class="val green" id="a2"></div><div class="meta">visualizações qualificadas entregues</div></div>
-      <div class="kpi"><div class="lbl">Custo por TrueView</div><div class="val green" id="a4"></div><div class="meta">CPV médio do período</div></div>
-      <div class="kpi"><div class="lbl">Taxa de TrueView</div><div class="val" id="a5"></div><div class="meta">TrueView sobre impressões</div></div>
+      <div class="kpi"><div class="lbl">Visualizações</div><div class="val green" id="a2"></div><div class="meta">quem assistiu, não só quem viu passar</div></div>
+      <div class="kpi"><div class="lbl">Custo por visualização</div><div class="val green" id="a4"></div><div class="meta">quanto custou cada pessoa que assistiu</div></div>
+      <div class="kpi"><div class="lbl">Taxa de visualização</div><div class="val" id="a5"></div><div class="meta">de cada 100 exibições, quantas viraram view</div></div>
       <div class="kpi"><div class="lbl">Vídeo assistido 100%</div><div class="val" id="a6"></div><div class="meta">média do período</div></div>
     </div>
+
+    <div class="note green" style="margin-top:16px"><b>O que conta como visualização aqui:</b> o YouTube só cobra quando a pessoa assiste pelo menos 30 segundos do anúncio, ou o vídeo inteiro se ele for mais curto, ou clica nele. Isso é o que o Google chama de TrueView. Quem passou o anúncio em 2 segundos aparece em impressões, mas não entra nesta coluna e não é cobrado. Por isso o número de visualizações é sempre menor que o de impressões, e por isso ele é o indicador honesto de quanta gente de fato viu o encarte.</div>
 
     <div class="card full" style="margin-top:18px">
       <h3>Investimento e entrega mês a mês</h3>
@@ -296,46 +306,21 @@ tr.tot:hover td{background:var(--panel2)}
       <div class="tscroll">
         <table>
           <thead><tr>
-            <th>Mês</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">TrueView</th>
-            <th class="r">CPV</th><th class="r">Taxa de TrueView</th><th class="r">Assistiu 100%</th>
+            <th>Mês</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">Visualizações</th>
+            <th class="r">Custo por view</th><th class="r">Taxa de view</th><th class="r">Assistiu 100%</th>
           </tr></thead>
           <tbody id="tbYta"></tbody>
         </table>
       </div>
-      <div class="note blue"><b>O que é TrueView:</b> é a visualização que o Google cobra, contada quando a pessoa assiste pelo menos 30 segundos do anúncio, o vídeo inteiro se for mais curto, ou interage com ele. Não é o mesmo que impressão, que é só a exibição na tela. Também não é a mesma métrica de visualização que o YouTube Studio mostra para o canal, por isso aqui aparece sempre como TrueView.</div>
     </div>
+
 
     <div class="card full" style="margin-top:18px">
-      <h3>Desempenho por praça</h3>
-      <div class="h-sub">Onde o investimento foi aplicado e quanto TrueView cada praça entregou no período selecionado</div>
-      <div class="tscroll">
-        <table>
-          <thead><tr>
-            <th>Praça</th><th class="r">Investimento</th><th class="r">Participação</th><th class="r">Impressões</th>
-            <th class="r">TrueView</th><th class="r">CPV</th><th class="r">Taxa de TrueView</th>
-          </tr></thead>
-          <tbody id="tbPraca"></tbody>
-        </table>
-      </div>
-      <div class="note" id="notaPraca"></div>
+      <h3>Até onde as pessoas assistem</h3>
+      <div class="h-sub">De todas as exibições do anúncio, quantas chegaram a cada parte do vídeo</div>
+      <div class="fnl" id="funilYt"></div>
     </div>
 
-    <div class="card full" style="margin-top:18px">
-      <h3>Desempenho por objetivo de campanha</h3>
-      <div class="h-sub">Vídeo, Alcance e Frequência compram coisas diferentes e precisam ser lidos contra o próprio objetivo</div>
-      <div class="tscroll">
-        <table>
-          <thead><tr>
-            <th>Objetivo</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">TrueView</th>
-            <th class="r">CPV</th><th class="r">Taxa de TrueView</th><th class="r">CPM</th>
-          </tr></thead>
-          <tbody id="tbObj"></tbody>
-        </table>
-      </div>
-      <div class="note blue" id="notaObj"></div>
-    </div>
-
-    <div class="insight"><h3>Leitura do YouTube Ads</h3><div id="insYta"></div></div>
   </div>
 
 <div id="stub" style="display:none"><div id="c2sub"></div><div id="detSub"></div><div id="tbDet"></div><div id="insDet"></div><div id="acSub"></div><div id="spBox"></div><div id="tbRef"></div><div id="destaques"></div><div id="passos"></div><div id="conc"></div></div>
@@ -421,20 +406,11 @@ const YT = {
   ads:  [929109,757672,863486,959105,824030,861286,921449,754066],
   custo:[18162.17,13779.51,16595.26,17986.34,16601.88,17115.25,16779.05,14374.91],
   impr: [2480293,1938773,2055127,2265132,1927879,1942905,2170007,1759463],
+  v25:  [57.92,57.45,62.49,64.52,63.43,63.42,61.78,58.81],
+  v50:  [43.11,44.36,48.05,48.81,49.39,50.16,48.49,47.18],
+  v75:  [38.10,39.56,43.18,43.68,44.55,45.46,43.75,42.66],
   v100: [34.63,36.12,39.59,40.01,40.94,41.89,40.42,39.27]
 };
-const PRACA = {
-  vr:  {nome:'Volta Redonda', custo:[6381,4826,6240,6289,6241,6654,5906,5481], impr:[818305,658554,727477,812065,686786,728128,733252,631036], views:[297391,262830,312458,320344,294529,317205,314372,269791]},
-  bm:  {nome:'Barra Mansa',   custo:[3376,2625,3120,3160,3121,3649,3413,2799], impr:[573432,428499,428700,507468,406773,458477,488888,389116], views:[211811,164401,173592,184527,163449,195598,206951,167916]},
-  ni:  {nome:'Nova Iguaçu',   custo:[4949,3320,3334,4722,3339,2328,3510,2023], impr:[494389,356420,356281,483546,333330,212368,395049,197118], views:[182269,130083,141741,195408,142594,95582,157339,84807]},
-  rmkt:{nome:'Remarketing',   custo:[3456,3008,3901,3902,3902,4484,3951,4072], impr:[594167,495300,542669,569238,500990,543932,552818,542193], views:[237638,200358,235695,258826,223458,252901,242787,231552]}
-};
-const OBJ = {
-  video:  {nome:'Vídeo (view)',      custo:[7374,5328,6661,7576,7000,6695,5857,5474], impr:[701142,550736,603237,689448,593470,529086,552673,459935], views:[381072,329956,382671,422633,374637,354937,368373,297884]},
-  alcance:{nome:'Alcance',           custo:[6721,4969,6034,6693,5701,5861,6712,5478], impr:[1029925,770674,851531,1165434,794905,815137,967509,766870], views:[313215,241127,287290,322370,275086,301828,335487,269300]},
-  freq:   {nome:'Frequência',        custo:[4066,3482,3901,3901,3901,4559,4210,3423], impr:[749226,617363,600359,633188,539504,598682,649825,532658], views:[234822,186589,193525,214102,174307,204521,217589,186882]}
-};
-const PK = Object.keys(PRACA), OK = Object.keys(OBJ);
 const brl = n => 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
 const brl0 = n => 'R$ '+Math.round(n).toLocaleString('pt-BR');
 const cpv = n => 'R$ '+n.toFixed(3).replace('.',',');
@@ -445,7 +421,9 @@ const K = ['views','fb','alc','int','cli','vis','seg'];
 const ALL = {}; K.forEach(k=>ALL[k]=M.map((_,i)=>UK.reduce((s,u)=>s+UNITS[u][k][i],0)));
 
 let sel = M.map((_,i)=>i);
-let unit = 'all';
+let unit = UK[0];
+let media = false;
+const N = v => media ? v/sel.length : v;
 const D = () => UNITS[unit] ? UNITS[unit] : ALL;
 const uName = () => UNITS[unit] ? UNITS[unit].nome : 'Consolidado';
 const uCor = () => UNITS[unit] ? UNITS[unit].cor : '#00CA9E';
@@ -484,6 +462,30 @@ const statusTxt = st => st==='ok'?'Dentro da referência':(st==='mid'?'Abaixo do
 const refTxt = r => r.refLabel ? r.refLabel : p1(r.ref[0])+'% a '+p1(r.ref[1])+'%';
 const val = (v,r) => r.unit==='%' ? p1(v)+'%' : p1(v)+'x';
 
+
+/* ---------- funil visual ---------- */
+function funilHTML(etapas, expo){
+  const base = etapas[0].v || 1;
+  return etapas.map((e,n)=>{
+    const w = 30 + 70*Math.pow(Math.max(e.v,0)/base, expo===undefined?1:expo);
+    const taxa = n===0 ? null : e.v/etapas[e.de===undefined?n-1:e.de].v*100;
+    let dir;
+    if(n===0){ dir='<div class="pc">100%</div><div class="sm">base do funil</div>'; }
+    else {
+      let st='';
+      if(e.ref) st = taxa>=e.ref[0] ? 'ok' : (taxa>=e.ref[0]*0.6 ? 'mid' : 'bad');
+      const cor = st==='ok'?'var(--green-d)':(st==='mid'?'var(--amber)':(st==='bad'?'var(--red)':'var(--ink)'));
+      dir = '<div class="pc" style="color:'+cor+'">'+p1(taxa)+'%</div><div class="sm">'+e.sm+
+            (e.ref?'<br>referência '+p1(e.ref[0])+'% a '+p1(e.ref[1])+'%':'')+'</div>';
+    }
+    return '<div class="fnl-step">'+
+        '<div class="fnl-lbl">'+e.lbl+'<span>'+e.d+'</span></div>'+
+        '<div class="fnl-track"><div class="fnl-bar" style="width:'+w.toFixed(1)+'%;background:'+e.cor+';color:'+e.txt+'">'+fmt(e.v)+'</div></div>'+
+        '<div class="fnl-right">'+dir+'</div>'+
+      '</div>' + (n===etapas.length-1 ? '' : '<div class="fnl-conn"><div></div><div class="mid">&darr;</div><div></div></div>');
+  }).join('');
+}
+
 /* ---------- filtros ---------- */
 const chipsEl = document.getElementById('chips');
 M.forEach((m,i)=>{
@@ -493,10 +495,11 @@ M.forEach((m,i)=>{
     sel.sort((a,b)=>a-b); render(); };
   chipsEl.appendChild(b);
 });
+document.getElementById('btnMedia').onclick=()=>{ media=!media; render(); };
 const uchipsEl = document.getElementById('uchips');
 const MODOS=['ga','yta'];
-[['all','Consolidado'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
-  const b=document.createElement('button'); b.className='uchip'+(k==='all'?' active':'')+(k==='ga'?' ecom':''); b.textContent=n; b.dataset.u=k;
+[...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
+  const b=document.createElement('button'); b.className='uchip'+(k===UK[0]?' active':'')+(k==='ga'?' ecom':''); b.textContent=n; b.dataset.u=k;
   b.onclick=()=>{ unit=k; render(); };
   uchipsEl.appendChild(b);
 });
@@ -529,43 +532,42 @@ function render(){
   const L = sel.map(i=>M[i]);
   renderGA(L); renderYTA(L);
   if(isGa){
-    document.getElementById('fnow').textContent = sel.length===M.length ? 'Todo o período' : (sel.length===1?ML[sel[0]]:L.join(' · '));
+    document.getElementById('fnow').textContent = (media?'Média de ':'')+(sel.length===M.length ? (media?sel.length+' meses':'Todo o período') : (sel.length===1?ML[sel[0]]:(media?sel.length+' meses':L.join(' · '))));
+  document.getElementById('btnMedia').classList.toggle('on', media);
     document.getElementById('tagPer').textContent = sel.length+(sel.length===1?' mês analisado':' meses analisados');
     return;
   }
   const Dx = D(), o = agg(Dx), cor = uCor();
-  document.getElementById('fnow').textContent = sel.length===M.length ? 'Todo o período' : (sel.length===1?ML[sel[0]]:L.join(' · '));
+  document.getElementById('fnow').textContent = (media?'Média de ':'')+(sel.length===M.length ? (media?sel.length+' meses':'Todo o período') : (sel.length===1?ML[sel[0]]:(media?sel.length+' meses':L.join(' · '))));
+  document.getElementById('btnMedia').classList.toggle('on', media);
   document.getElementById('tagPer').textContent = sel.length+(sel.length===1?' mês analisado':' meses analisados');
 
   /* KPIs */
-  document.getElementById('k1').textContent = fmt(o.views+o.fb);
-  document.getElementById('k1b').textContent = 'Instagram '+fmt(o.views)+' · Facebook '+fmt(o.fb);
-  document.getElementById('k2').textContent = fmt(o.alc);
-  document.getElementById('k3').textContent = fmt(o.int);
-  document.getElementById('k4').textContent = fmt(o.cli);
-  document.getElementById('k5').textContent = fmt(o.vis);
+  document.getElementById('k1').textContent = fmt(N(o.views+o.fb));
+  document.getElementById('k1b').textContent = 'Instagram '+fmt(N(o.views))+' · Facebook '+fmt(N(o.fb));
+  document.getElementById('k2').textContent = fmt(N(o.alc));
+  document.getElementById('k3').textContent = fmt(N(o.int));
+  document.getElementById('k4').textContent = fmt(N(o.cli));
+  document.getElementById('k5').textContent = fmt(N(o.vis));
   document.getElementById('k5b').textContent = fmt(o.vis/sel.length);
-  document.getElementById('k6').textContent = fmt(o.seg);
-  document.getElementById('k6b').textContent = unit==='all' ? 'somados os quatro perfis' : UNITS[unit].handle;
-  const segBase = unit==='all' ? UK.reduce((a,u)=>a+UNITS[u].segBase,0) : UNITS[unit].segBase;
+  document.getElementById('k6').textContent = fmt(N(o.seg));
+  document.getElementById('k6b').textContent = UNITS[unit].handle;
+  document.getElementById('k5m').style.display = media ? 'none' : '';
+  const segBase = UNITS[unit].segBase;
   document.getElementById('k7').textContent = fmt(segBase);
   document.getElementById('k7b').textContent = 'crescimento de '+p1(o.seg/segBase*100)+'% no período';
 
   /* funil */
-  document.getElementById('funnel').innerHTML = RATES.map(r=>{
-    const v=rate(o,r), st=status(v,r);
-    return '<div class="fst '+st+'"><div class="fl">'+r.lbl+'</div><div class="fv">'+val(v,r)+'</div>'+
-      '<div class="fd">'+r.desc(o)+'</div><div class="fr">'+statusTxt(st)+' · '+refTxt(r)+'</div></div>';
-  }).join('');
+  document.getElementById('funnel').innerHTML = funilHTML([
+    {lbl:'Contas alcançadas', d:'pessoas únicas impactadas', v:N(o.alc), cor:'#cdf2e8', txt:'#0D0D0D'},
+    {lbl:'Visitas ao perfil', d:'saíram do feed e foram ver a marca', v:N(o.vis), cor:'#8ee5cd', txt:'#0D0D0D', sm:'do alcance', ref:[3,6]},
+    {lbl:'Cliques no link',   d:'seguiram para e-commerce, app ou loja', v:N(o.cli), cor:'#00CA9E', txt:'#0D0D0D', sm:'das visitas ao perfil', ref:[8,15], de:1},
+    {lbl:'Novos seguidores',  d:'passaram a receber oferta sem mídia', v:N(o.seg), cor:'#0D0D0D', txt:'#ffffff', sm:'das visitas ao perfil', ref:[5,8], de:1}
+  ], 0.42);
 
   /* c1 views + alcance */
 
   /* c2 divisao */
-  if(unit==='all'){
-    document.getElementById('c2sub').textContent ='Participação de cada perfil no alcance total';
-  } else {
-    document.getElementById('c2sub').textContent ='Instagram contra Facebook nas visualizações';
-  }
 
   /* ---- comparativo entre perfis ---- */
   document.getElementById('uniSub').textContent='Todos os indicadores no período selecionado · '+(sel.length===M.length?'janeiro a agosto':L.join(', '));
@@ -573,11 +575,11 @@ function render(){
     const U=UNITS[u], x=agg(U);
     return '<tr><td><span class="pill '+U.pill+'">'+U.nome+'</span></td>'+
       '<td class="r num">'+fmt(U.segBase)+'</td>'+
-      '<td class="r num">'+fmt(x.views+x.fb)+'</td><td class="r num">'+fmt(x.alc)+'</td>'+
-      '<td class="r num">'+fmt(x.int)+'</td><td class="r num">'+fmt(x.vis)+'</td>'+
-      '<td class="r num g">'+fmt(x.cli)+'</td><td class="r num">'+fmt(x.seg)+'</td></tr>';
+      '<td class="r num">'+fmt(N(x.views+x.fb))+'</td><td class="r num">'+fmt(N(x.alc))+'</td>'+
+      '<td class="r num">'+fmt(N(x.int))+'</td><td class="r num">'+fmt(N(x.vis))+'</td>'+
+      '<td class="r num g">'+fmt(N(x.cli))+'</td><td class="r num">'+fmt(N(x.seg))+'</td></tr>';
   }).join('') + (()=>{const t=agg(ALL), b=UK.reduce((a,u)=>a+UNITS[u].segBase,0);
-    return '<tr class="tot"><td>Total</td><td class="r">'+fmt(b)+'</td><td class="r">'+fmt(t.views+t.fb)+'</td><td class="r">'+fmt(t.alc)+'</td><td class="r">'+fmt(t.int)+'</td><td class="r">'+fmt(t.vis)+'</td><td class="r">'+fmt(t.cli)+'</td><td class="r">'+fmt(t.seg)+'</td></tr>';})();
+    return '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+fmt(b)+'</td><td class="r">'+fmt(N(t.views+t.fb))+'</td><td class="r">'+fmt(N(t.alc))+'</td><td class="r">'+fmt(N(t.int))+'</td><td class="r">'+fmt(N(t.vis))+'</td><td class="r">'+fmt(N(t.cli))+'</td><td class="r">'+fmt(N(t.seg))+'</td></tr>';})();
 
   document.getElementById('tbRate').innerHTML = UK.map(u=>{
     const U=UNITS[u], x=agg(U);
@@ -595,7 +597,7 @@ function render(){
     return '<tr><td><b>'+ML[i]+'</b></td>'+
       '<td class="r"><div class="num">'+fmt(Dx.views[i]+Dx.fb[i])+'</div>'+(p!==null?pctTag(Dx.views[i]+Dx.fb[i],Dx.views[p]+Dx.fb[p]):'')+'</td>'+
       cell('alc')+cell('int')+cell('vis')+cell('cli')+cell('seg')+'</tr>';
-  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+fmt(o.views+o.fb)+'</td><td class="r">'+fmt(o.alc)+'</td><td class="r">'+fmt(o.int)+'</td><td class="r">'+fmt(o.vis)+'</td><td class="r">'+fmt(o.cli)+'</td><td class="r">'+fmt(o.seg)+'</td></tr>';
+  }).join('') + '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+fmt(N(o.views+o.fb))+'</td><td class="r">'+fmt(N(o.alc))+'</td><td class="r">'+fmt(N(o.int))+'</td><td class="r">'+fmt(N(o.vis))+'</td><td class="r">'+fmt(N(o.cli))+'</td><td class="r">'+fmt(N(o.seg))+'</td></tr>';
 
   const base=sel[0];
   const idx=k=>sel.map(i=>Dx[k][base]?Dx[k][i]/Dx[k][base]*100:0);
@@ -622,7 +624,6 @@ function render(){
       '<td class="r" style="color:#6b7280">'+refTxt(r)+'</td><td class="r"><span class="pill '+(st==='ok'?'p1':(st==='mid'?'p3':'p2'))+'">'+statusTxt(st)+'</span></td></tr>';
   }).join('');
 
-  textos(o,Dx,L);
 }
 
 /* ---------- GA4 ---------- */
@@ -634,12 +635,12 @@ function renderGA(L){
   const ev=GK.reduce((s,c)=>s+gsum(c,'ev'),0);
   const tempo=GK.reduce((s,c)=>s+sel.reduce((a,i)=>a+GA[c].tempo[i]*GA[c].tot[i],0),0)/tot;
 
-  document.getElementById('g1').textContent =fmt(tot);
-  document.getElementById('g1b').textContent ='média de '+fmt(tot/sel.length)+'/mês';
-  document.getElementById('g2').textContent =fmt(novos);
+  document.getElementById('g1').textContent =fmt(N(tot));
+  document.getElementById('g1b').textContent = media ? 'média dos meses selecionados' : 'média de '+fmt(tot/sel.length)+'/mês';
+  document.getElementById('g2').textContent =fmt(N(novos));
   document.getElementById('g2b').textContent =p1(novos/tot*100)+'% do total';
-  document.getElementById('g3').textContent =fmtN(evp);
-  document.getElementById('g4').textContent =fmt(ev);
+  document.getElementById('g3').textContent =fmtN(N(evp));
+  document.getElementById('g4').textContent =fmt(N(ev));
   document.getElementById('g5').textContent =Math.round(tempo)+'s';
   document.getElementById('g6').textContent =p1(evp/tot*1000);
 
@@ -650,38 +651,14 @@ function renderGA(L){
     const se=sel.reduce((a,i)=>a+GA[c].ses[i]*GA[c].tot[i],0)/(t||1);
     const per=e/t*1000;
     const cls = per>=20?'g':(per>=2?'a':'r2');
-    return '<tr><td><b>'+GA[c].nome+'</b></td><td class="r num">'+fmtN(t)+'</td><td class="r">'+p1(t/tot*100)+'%</td>'+
+    return '<tr><td><b>'+GA[c].nome+'</b></td><td class="r num">'+fmtN(N(t))+'</td><td class="r">'+p1(t/tot*100)+'%</td>'+
       '<td class="r num">'+Math.round(tm)+'s</td><td class="r num">'+se.toFixed(2).replace('.',',')+'</td>'+
-      '<td class="r num">'+fmtN(e)+'</td><td class="r num '+cls+'">'+p1(per)+'</td></tr>';
-  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+fmtN(tot)+'</td><td class="r">100%</td><td class="r">'+Math.round(tempo)+'s</td><td class="r">—</td><td class="r">'+fmtN(evp)+'</td><td class="r">'+p1(evp/tot*1000)+'</td></tr>';
+      '<td class="r num">'+fmtN(N(e))+'</td><td class="r num '+cls+'">'+p1(per)+'</td></tr>';
+  }).join('') + '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+fmtN(N(tot))+'</td><td class="r">100%</td><td class="r">'+Math.round(tempo)+'s</td><td class="r">—</td><td class="r">'+fmtN(N(evp))+'</td><td class="r">'+p1(evp/tot*1000)+'</td></tr>';
 
-  document.getElementById('noteGa').innerHTML ='<b>Eventos principais</b> são as conversões marcadas dentro do GA4 da propriedade Ecom_Royal. Qual evento está configurado como principal, e se ele representa compra finalizada ou outra etapa, é informação que precisa vir do cliente. Sem isso, o número mede conversão do site, não faturamento.';
-
-  const ps=gsum('ps','tot'), psE=gsum('ps','evp');
-  const dirT=gsum('dir','tot'), dirE=gsum('dir','evp');
-  const osT=gsum('os','tot'), osE=gsum('os','evp');
-  const socT=gsum('osoc','tot'), socE=gsum('osoc','evp');
-  const f=sel[0], l=sel[sel.length-1];
-  const totF=GK.reduce((s,c)=>s+GA[c].tot[f],0), totL=GK.reduce((s,c)=>s+GA[c].tot[l],0);
-  const evpF=GK.reduce((s,c)=>s+GA[c].evp[f],0), evpL=GK.reduce((s,c)=>s+GA[c].evp[l],0);
-
-  document.getElementById('insGa').innerHTML =
-    '<p>O site recebeu <b>'+fmt(tot)+' usuários</b> no período e registrou <b>'+fmtN(evp)+' eventos principais</b>. '+
-    'A conversão está concentrada em dois canais: <b>Direct</b> ('+fmtN(dirE)+' eventos em '+fmtN(dirT)+' usuários) e <b>Organic Search</b> ('+fmtN(osE)+' em '+fmtN(osT)+'). '+
-    'Juntos são '+p1((dirE+osE)/evp*100)+'% de tudo que converte.</p>'+
-    '<p><b>Paid Social é o ponto crítico.</b> Trouxe '+fmtN(ps)+' usuários, '+p1(ps/tot*100)+'% de todo o tráfego do site, e gerou '+fmtN(psE)+' eventos principais. '+
-    'O tempo médio de engajamento é de '+p1(sel.reduce((a,i)=>a+GA.ps.tempo[i]*GA.ps.tot[i],0)/ps)+' segundos e as sessões engajadas por usuário ficam em torno de 0,1. '+
-    'Na prática, esse tráfego entra no site e sai antes de carregar a página. Não é tráfego de compra, é clique.</p>'+
-    '<p><b>Organic Social mudou de comportamento.</b> Caiu de 4.429 usuários em maio para 889 em julho, mas o tempo de engajamento subiu de 10,5s para 67,2s e as sessões engajadas por usuário quase triplicaram. '+
-    'Menos gente, muito mais qualificada. O conteúdo do Instagram passou a levar quem realmente tem intenção, não quem clica por impulso.</p>'+
-    '<p>De '+ML[f]+' para '+ML[l]+', o tráfego total '+(totL>totF?'subiu ':'caiu ')+p1(Math.abs((totL-totF)/totF*100))+'% enquanto os eventos principais '+
-    (evpL>evpF?'subiram ':'caíram ')+p1(Math.abs((evpL-evpF)/evpF*100))+'%. '+
-    (totL<totF&&evpL>=evpF*0.95?'Ou seja: o site perdeu volume e manteve conversão. O tráfego que saiu não era o que convertia.':'')+'</p>';
-
-  document.getElementById('noteGa2').innerHTML ='<b>Lacuna de medição:</b> o Instagram registrou 118 mil cliques no link no período, mas o GA4 registra '+fmtN(socT)+' usuários vindos de Organic Social. '+
-    'A diferença é esperada, porque o Linktree distribui o clique entre e-commerce, app, WhatsApp e páginas de loja, e só a parte que cai no site é contada aqui. '+
-    'Para fechar essa conta e saber quanto do orgânico vira pedido, seria preciso UTM padronizado em cada botão do Linktree e o dado de instalação do app, que vem do cliente.';
 }
+
+
 
 
 /* ---------- YouTube Ads ---------- */
@@ -689,159 +666,32 @@ function renderYTA(L){
   const S=(arr)=>sel.reduce((a,i)=>a+arr[i],0);
   const custo=S(YT.custo), impr=S(YT.impr), views=S(YT.ads);
   const v100=sel.reduce((a,i)=>a+YT.v100[i]*YT.ads[i],0)/(views||1);
-  setT('a1', brl0(custo)); setT('a1b','média de '+brl0(custo/sel.length)+'/mês');
-  setT('a2', fmt(views)); setT('a3', fmt(impr));
+  setT('a1', brl0(N(custo))); setT('a1b', media ? 'média dos meses selecionados' : 'média de '+brl0(custo/sel.length)+'/mês');
+  setT('a2', fmt(N(views))); setT('a3', fmt(N(impr)));
   setT('a4', cpv(custo/(views||1)));
   setT('a5', p1(views/(impr||1)*100)+'%');
   setT('a6', p1(v100)+'%');
-  setT('ytaSub','Canal royalsupervoce · visualizações TrueView do Google Ads · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', ')));
+  setT('ytaSub','Canal royalsupervoce · dados do Google Ads · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', ')));
 
   set('tbYta', sel.map(i=>{
     const c=YT.custo[i], im=YT.impr[i], vw=YT.ads[i];
     return '<tr><td><b>'+ML[i]+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r num">'+fmt(im)+'</td>'+
       '<td class="r num g">'+fmt(vw)+'</td><td class="r num">'+cpv(c/vw)+'</td>'+
       '<td class="r num">'+p1(vw/im*100)+'%</td><td class="r num">'+p1(YT.v100[i])+'%</td></tr>';
-  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+brl0(custo)+'</td><td class="r">'+fmt(impr)+'</td>'+
-    '<td class="r">'+fmt(views)+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td><td class="r">'+p1(v100)+'%</td></tr>');
+  }).join('') + '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+brl0(N(custo))+'</td><td class="r">'+fmt(N(impr))+'</td>'+
+    '<td class="r">'+fmt(N(views))+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td><td class="r">'+p1(v100)+'%</td></tr>');
 
-  const ordP=PK.slice().sort((a,b)=>S(PRACA[b].custo)-S(PRACA[a].custo));
-  set('tbPraca', ordP.map(k=>{
-    const P=PRACA[k], c=S(P.custo), im=S(P.impr), vw=S(P.views);
-    const taxa=vw/(im||1)*100, cls=taxa>=40?'g':(taxa>=30?'a':'r2');
-    return '<tr><td><b>'+P.nome+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r">'+p1(c/custo*100)+'%</td>'+
-      '<td class="r num">'+fmt(im)+'</td><td class="r num">'+fmt(vw)+'</td>'+
-      '<td class="r num">'+cpv(c/(vw||1))+'</td><td class="r num '+cls+'">'+p1(taxa)+'%</td></tr>';
-  }).join('') + '<tr class="tot"><td>Total</td><td class="r">'+brl0(custo)+'</td><td class="r">100%</td><td class="r">'+fmt(impr)+'</td><td class="r">'+fmt(views)+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td></tr>');
-
-  set('notaPraca','<b>Três Rios não aparece na tabela porque não teve entrega.</b> As campanhas [YT] [VIDEO] [TRÊS RIOS] e [YT] [ALCANCE] [TRÊS RIOS] estão ativas na conta nos oito meses, com orçamento reservado, mas todos os anúncios dentro delas estão pausados. Resultado: zero impressão e zero investimento em uma praça que tem loja. É a correção mais simples e mais barata da conta.');
-
-  set('tbObj', OK.map(k=>{
-    const O=OBJ[k], c=S(O.custo), im=S(O.impr), vw=S(O.views);
-    const taxa=vw/(im||1)*100, cls=taxa>=50?'g':(taxa>=30?'a':'r2');
-    return '<tr><td><b>'+O.nome+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r num">'+fmt(im)+'</td>'+
-      '<td class="r num">'+fmt(vw)+'</td><td class="r num">'+cpv(c/(vw||1))+'</td>'+
-      '<td class="r num '+cls+'">'+p1(taxa)+'%</td><td class="r num">'+brl(c/(im||1)*1000)+'</td></tr>';
-  }).join(''));
-
-  const ob={}; OK.forEach(k=>{const O=OBJ[k]; ob[k]={c:S(O.custo),im:S(O.impr),vw:S(O.views)};});
-  set('notaObj','<b>Por que o CPM de Alcance é mais baixo:</b> campanha de alcance e de frequência compra exibição barata, é essa a função dela. Campanha de vídeo compra atenção e custa mais por mil impressões, mas entrega taxa de TrueView muito maior. Comparar as três pelo mesmo CPM levaria à conclusão errada de pausar justamente a que mais prende o espectador.');
-
-  const melhorP=ordP.slice().sort((a,b)=>S(PRACA[b].views)/S(PRACA[b].impr)-S(PRACA[a].views)/S(PRACA[a].impr))[0];
-  const piorCPV=ordP.slice().sort((a,b)=>(S(PRACA[b].custo)/S(PRACA[b].views))-(S(PRACA[a].custo)/S(PRACA[a].views)))[0];
-  const f=sel[0], l=sel[sel.length-1];
-  set('insYta',
-    '<p>No período foram investidos <b>'+brl0(custo)+'</b> em YouTube Ads, que entregaram <b>'+fmt(impr)+' impressões</b> e <b>'+fmt(views)+' TrueView</b>, a um CPV de <b>'+cpv(custo/views)+'</b>. '+
-    'Para varejo alimentar isso é barato: o custo de colocar o encarte na frente de uma pessoa que assiste ficou em menos de dois centavos.</p>'+
-    '<p><b>'+PRACA[ordP[0]].nome+'</b> concentra o maior investimento ('+p1(S(PRACA[ordP[0]].custo)/custo*100)+'% do total). '+
-    'Em eficiência de entrega, quem converte melhor impressão em TrueView é <b>'+PRACA[melhorP].nome+'</b> ('+p1(S(PRACA[melhorP].views)/S(PRACA[melhorP].impr)*100)+'), '+
-    'e o CPV mais caro está em <b>'+PRACA[piorCPV].nome+'</b> ('+cpv(S(PRACA[piorCPV].custo)/S(PRACA[piorCPV].views))+').</p>'+
-    '<p>A taxa de vídeo assistido até o fim subiu ao longo do período, de '+p1(YT.v100[0])+' em janeiro para '+p1(YT.v100[7])+' em agosto. '+
-    'Criativo está prendendo mais, não menos. Isso puxa o CPV para baixo sozinho, porque o YouTube cobra melhor quem retém.</p>'+
-    '<p><b>Nova Iguaçu é o ponto de atenção.</b> O investimento caiu de '+brl0(PRACA.ni.custo[0])+' em janeiro para '+brl0(PRACA.ni.custo[7])+' em agosto, '+
-    'queda de '+p1((PRACA.ni.custo[0]-PRACA.ni.custo[7])/PRACA.ni.custo[0]*100)+'%, e o TrueView caiu na mesma proporção. '+
-    'A praça não perdeu desempenho, perdeu verba. Vale confirmar se foi decisão de estratégia ou se a campanha está limitada por orçamento sem que ninguém tenha reajustado.</p>');
+  const tx=k=>sel.reduce((a,i)=>a+YT.impr[i]*YT[k][i]/100,0);
+  set('funilYt', funilHTML([
+    {lbl:'Exibições do anúncio', d:'o anúncio apareceu na tela', v:N(impr), cor:'#cdf2e8', txt:'#0D0D0D'},
+    {lbl:'Assistiu 25%',    d:'passou do começo e continuou', v:N(tx('v25')),  cor:'#8ee5cd', txt:'#0D0D0D', sm:'das exibições'},
+    {lbl:'Assistiu metade', d:'chegou ao meio do vídeo',      v:N(tx('v50')),  cor:'#4ad8b4', txt:'#0D0D0D', sm:'de quem viu 25%'},
+    {lbl:'Assistiu 75%',    d:'já viu quase tudo',            v:N(tx('v75')),  cor:'#00CA9E', txt:'#0D0D0D', sm:'de quem viu metade'},
+    {lbl:'Assistiu até o fim', d:'viu o encarte inteiro',     v:N(tx('v100')), cor:'#0D0D0D', txt:'#ffffff', sm:'de quem viu 75%'}
+  ], 1));
 }
 
 
-/* ---------- textos ---------- */
-function textos(o,Dx,L){
-  const nome=uName(), n=sel.length;
-  const av=rate(o,RATES[0]), ai=rate(o,RATES[1]), vc=rate(o,RATES[2]), vs=rate(o,RATES[3]), fq=rate(o,RATES[4]);
-  const mx=k=>{let b=sel[0];sel.forEach(i=>{if(Dx[k][i]>Dx[k][b])b=i});return b};
-  const mn=k=>{let b=sel[0];sel.forEach(i=>{if(Dx[k][i]<Dx[k][b])b=i});return b};
-  const bAlc=mx('alc'), pVis=mx('vis'), pCli=mx('cli'), wAlc=mn('alc');
-  const fbShare=(o.views+o.fb)?o.fb/(o.views+o.fb)*100:0;
-
-  document.getElementById('insExec').innerHTML =
-    '<p>No período, '+nome+' alcançou <b>'+fmt(o.alc)+' pessoas</b> e gerou <b>'+fmt(o.vis)+' visitas ao perfil</b> e <b>'+fmt(o.cli)+' cliques no link</b>. '+
-    'De cada 100 pessoas alcançadas, <b>'+p1(av)+'</b> foram ver o perfil, e de cada 100 que visitaram, <b>'+p1(vc)+'</b> clicaram no link. '+
-    'A base cresceu em <b>'+fmt(o.seg)+' seguidores</b>.</p>'+
-    '<p>A frequência ficou em <b>'+p1(fq)+' exibições por pessoa alcançada</b>. Em supermercado isso é o que faz preço virar memória: '+
-    (fq>=8?'o mesmo cliente está vendo a marca várias vezes por mês, que é exatamente o comportamento que sustenta top of mind de oferta.':
-    'ainda há espaço para aumentar repetição sobre a mesma base, que é o que consolida lembrança de preço.')+'</p>'+
-    '<p>Melhor mês de alcance: <b>'+ML[bAlc]+'</b> ('+fmt(Dx.alc[bAlc])+'). Pico de visitas ao perfil em <b>'+ML[pVis]+'</b> e de cliques em <b>'+ML[pCli]+'</b>. '+
-    'Mês mais fraco de alcance: <b>'+ML[wAlc]+'</b> ('+fmt(Dx.alc[wAlc])+').</p>';
-
-  let nExec = '<b>Como ler este painel:</b> alcance é gente única impactada, visualizações é quantas vezes o conteúdo apareceu. '+
-    'Os dois medem coisas diferentes, e alcance caindo com visualização estável significa mais repetição sobre a mesma base, não menos entrega. '+
-    'Os valores de alcance vêm arredondados pelo próprio Business Suite.';
-  if(unit==='all'||unit==='ni') nExec += '<br><br><b>Janeiro do Nova Iguaçu:</b> 30,8 mil cliques, 40,1 mil visitas e 17,2 mil seguidores novos em um único mês, num perfil de 39,1 mil. '+
-    'O volume tem comportamento de ação com incentivo, não de conteúdo de rotina. A confirmação do que foi precisa vir do cliente. '+
-    'Enquanto isso não estiver confirmado, janeiro não deve ser usado como base de comparação para os meses seguintes.';
-  document.getElementById('noteExec').innerHTML = nExec;
-
-  /* perfis */
-  const rk = UK.map(u=>({u,nome:UNITS[u].nome,x:agg(UNITS[u])}));
-  const melhorVC = rk.slice().sort((a,b)=>rate(b.x,RATES[2])-rate(a.x,RATES[2]))[0];
-  const melhorAV = rk.slice().sort((a,b)=>rate(b.x,RATES[0])-rate(a.x,RATES[0]))[0];
-  const maiorAlc = rk.slice().sort((a,b)=>b.x.alc-a.x.alc)[0];
-  const piorVC = rk.slice().sort((a,b)=>rate(a.x,RATES[2])-rate(b.x,RATES[2]))[0];
-  document.getElementById('insUni').innerHTML =
-    '<p><b>'+maiorAlc.nome+'</b> concentra o maior volume de alcance ('+fmt(maiorAlc.x.alc)+'), o que é esperado pelo tamanho da base. '+
-    'Mas volume e eficiência são coisas diferentes: em conversão de visita em clique, quem lidera é <b>'+melhorVC.nome+'</b>, com '+p1(rate(melhorVC.x,RATES[2]))+'.</p>'+
-    '<p>Em alcance para visita ao perfil, <b>'+melhorAV.nome+'</b> é o mais eficiente ('+p1(rate(melhorAV.x,RATES[0]))+'), ou seja, entrega o conteúdo que mais desperta vontade de conhecer a marca. '+
-    'Na ponta oposta, <b>'+piorVC.nome+'</b> tem '+p1(rate(piorVC.x,RATES[2]))+' de visita para clique: o perfil atrai, mas o destino do link converte menos. Esse é o ponto de ajuste mais barato de resolver, porque não depende de alcance novo.</p>'+
-    '<p>A leitura prática: o perfil com mais eficiência é o modelo de conteúdo a replicar nos outros. Formato, frequência e tipo de oferta que funcionam nele são a referência para padronizar a operação das quatro contas.</p>';
-
-  /* comparativo */
-  const f=sel[0], l=sel[sel.length-1];
-  const varP=(k)=>Dx[k][f]?((Dx[k][l]-Dx[k][f])/Dx[k][f]*100):0;
-  const txtVar=(k,nm)=>{const v=varP(k); return nm+' '+(v>0?'subiu ':'caiu ')+p1(Math.abs(v))+'%';};
-  document.getElementById('insComp').innerHTML =
-    '<p>Comparando <b>'+ML[f]+'</b> com <b>'+ML[l]+'</b> em '+nome+': '+txtVar('alc','alcance')+', '+txtVar('vis','visitas ao perfil')+', '+
-    txtVar('cli','cliques no link')+' e '+txtVar('seg','novos seguidores')+'.</p>'+
-    '<p>O gráfico de índice 100 existe para separar volume de eficiência. Quando alcance e visitas andam em direções diferentes, o conteúdo mudou de qualidade, não só de entrega. '+
-    'Quando os dois caem juntos, é distribuição. Quando cliques caem com visitas estáveis, o problema está no destino do link, não no conteúdo.</p>';
-
-  /* detalhamento */
-  const fqs=sel.map(i=>rateAt(Dx,RATES[4],i));
-  const fqIni=fqs[0], fqFim=fqs[fqs.length-1];
-  let dTxt='<p>A frequência saiu de <b>'+p1(fqIni)+'x</b> em '+ML[f]+' para <b>'+p1(fqFim)+'x</b> em '+ML[l]+'. '+
-    (fqFim>fqIni?'A marca está aparecendo mais vezes para menos gente, o que reforça lembrança de preço mas sinaliza teto de alcance novo.':
-    'A marca está distribuindo para mais gente diferente, o que amplia topo mas dilui repetição.')+'</p>'+
-    '<p>Alcance para interação fechou o período em <b>'+p1(ai)+'</b>, contra referência de 1% a 2%. '+
-    (ai>2?'Está bem acima do padrão de mercado: o conteúdo não só aparece, ele provoca reação. Esse é o ativo mais forte da operação e o que barateia qualquer campanha paga construída em cima desses posts.':'')+'</p>';
-  if(unit==='all'||unit==='es') dTxt+='<p><b>Junho no Royal Estoque:</b> o Facebook saltou de 56 mil para 672 mil visualizações em um mês, 21% do total da conta, e voltou a cair depois. '+
-    'Nos demais meses o FB do Estoque fica entre 25 e 160 mil. Vale confirmar com o cliente se houve impulsionamento ou conteúdo específico naquele mês.</p>';
-  document.getElementById('insDet').innerHTML = dTxt;
-
-  /* destaques e passos */
-  document.getElementById('destaques').innerHTML =
-    '<div class="act"><div class="d">Ponto forte</div><div class="h">Engajamento muito acima da referência</div>'+
-    '<div class="p">Alcance para interação em '+p1(ai)+', contra faixa de mercado de 1% a 2%. O conteúdo de oferta gera reação, não apenas impressão.</div>'+
-    '<div class="imp">Conteúdo com tração orgânica é a base mais barata para impulsionamento</div></div>'+
-    '<div class="act"><div class="d">Ponto forte</div><div class="h">Tráfego consistente para o link</div>'+
-    '<div class="p">'+fmt(o.cli)+' cliques no período, com '+p1(vc)+' de conversão de visita em clique.</div>'+
-    '<div class="imp">É o canal orgânico alimentando e-commerce e app sem custo de mídia</div></div>'+
-    '<div class="act amber"><div class="d">Ponto de atenção</div><div class="h">Alcance novo perdendo fôlego</div>'+
-    '<div class="p">A frequência subiu ao longo do período, sinal de que o conteúdo circula cada vez mais dentro da base atual e menos entre não seguidores.</div>'+
-    '<div class="imp">Sem entrada de público novo, o teto de crescimento chega</div></div>'+
-    '<div class="act warn"><div class="d">Ponto de atenção</div><div class="h">Eficiência desigual entre perfis</div>'+
-    '<div class="p">A diferença de conversão entre a melhor e a pior conta mostra que há padrão de conteúdo funcionando em um perfil e não replicado nos outros.</div>'+
-    '<div class="imp">Ganho disponível sem aumentar produção nem verba</div></div>';
-
-  document.getElementById('passos').innerHTML =
-    '<div class="act"><div class="d">Prioridade 1</div><div class="h">Mapear e replicar os 3 posts de maior alcance de cada perfil</div>'+
-    '<div class="p">Levantar os conteúdos com melhor desempenho orgânico dos últimos 30 dias e refazer o formato nas outras contas, adaptando preço e loja.</div>'+
-    '<div class="imp">Custo de aquisição cai quando o ponto de partida é conteúdo com tração real</div></div>'+
-    '<div class="act"><div class="d">Prioridade 2</div><div class="h">Impulsionar o conteúdo que já engaja em vez de criar campanha do zero</div>'+
-    '<div class="p">Com engajamento orgânico acima da referência, o boost direcionado sobre esses posts entrega mais barato do que criativo novo sem histórico.</div>'+
-    '<div class="imp">Aproveita sinal de relevância que o algoritmo já reconheceu</div></div>'+
-    '<div class="act"><div class="d">Prioridade 3</div><div class="h">Padronizar o destino do link entre as quatro contas</div>'+
-    '<div class="p">A conta com pior conversão de visita em clique indica atrito no Linktree. Alinhar ordem dos botões, nomenclatura e o que aparece primeiro.</div>'+
-    '<div class="imp">Ganho direto em tráfego sem depender de alcance novo</div></div>'+
-    '<div class="act amber"><div class="d">Prioridade 4</div><div class="h">Puxar público novo com conteúdo não promocional</div>'+
-    '<div class="p">Bastidor de açougue, padaria e hortifrúti, receita com produto da loja e depoimento de cliente circulam melhor fora da base do que encarte puro.</div>'+
-    '<div class="imp">Reduz a dependência de frequência sobre o mesmo público</div></div>';
-
-  document.getElementById('conc').innerHTML =
-    '<p>As quatro contas somam <b>'+fmt(agg(ALL).alc)+' pessoas alcançadas</b> e <b>'+fmt(agg(ALL).cli)+' cliques no link</b> no período, '+
-    'com engajamento bem acima da referência de mercado. O orgânico do Royal não é vitrine, é canal de distribuição de oferta com volume real.</p>'+
-    '<p>O gargalo não é conteúdo, é <b>renovação de público</b>. A frequência crescente mostra que a marca está falando cada vez mais com quem já segue. '+
-    'O próximo ciclo precisa equilibrar encarte, que sustenta a base, com conteúdo de alcance, que traz gente nova.</p>'+
-    '<p>Para transformar esse tráfego em leitura de venda, é preciso o dado de pedidos no e-commerce, instalações do app e movimento de loja no mesmo período. '+
-    '<b>Essa informação vem do cliente</b>, não da plataforma de anúncios, e sem ela o painel mede alcance e tráfego, não faturamento.</p>';
-}
 
 render();
 </script>
