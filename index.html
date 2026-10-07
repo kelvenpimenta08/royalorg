@@ -40,6 +40,8 @@ body{background:var(--bg);color:var(--txt);font-family:'Poppins',system-ui,sans-
 .uchip{background:transparent;border:1px solid #33383d;font-family:inherit;font-size:12.5px;font-weight:600;color:#d7dbe0;padding:8px 16px;border-radius:9px;cursor:pointer;transition:.15s}
 .uchip:hover{border-color:var(--green);color:#fff}
 .uchip.active{background:var(--green);color:#04120f;border-color:var(--green)}
+.uchip.grupo{border-right:3px solid var(--green);margin-right:8px}
+.uchip.grupo.active{border-right-color:#04120f}
 .uchip.ecom{border-left:3px solid var(--green);margin-left:8px}
 .uchip.ecom.active{border-left-color:#04120f}
 .filterbar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-bottom:22px;position:sticky;top:env(safe-area-inset-top,0px);z-index:20;box-shadow:0 2px 10px rgba(13,13,13,.05)}
@@ -125,6 +127,7 @@ tr.tot:hover td{background:var(--panel2)}
 .p3{background:var(--amber-soft);color:var(--u3)}
 .p4{background:#f4e9fb;color:var(--u4)}
 .p5{background:#fdeee7;color:#c74f1c}
+.legenda{font-size:11px;color:var(--mute);margin-top:12px;letter-spacing:.3px}
 .foot{text-align:center;color:var(--mute);font-size:11px;margin-top:34px;letter-spacing:.5px}
 .foot b{color:var(--green-d)}
 .conc{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:18px}
@@ -286,37 +289,50 @@ tr.tot:hover td{background:var(--panel2)}
   <!-- YOUTUBE ADS -->
   <div class="view" id="v-yta">
     <div class="kpis">
-      <div class="kpi"><div class="lbl">Investimento</div><div class="val" id="a1"></div><div class="meta" id="a1b"></div></div>
-      <div class="kpi"><div class="lbl">Impressões</div><div class="val" id="a3"></div><div class="meta">exibições do anúncio</div></div>
-      <div class="kpi"><div class="lbl">Visualizações</div><div class="val green" id="a2"></div><div class="meta">quem assistiu, não só quem viu passar</div></div>
-      <div class="kpi"><div class="lbl">Custo por visualização</div><div class="val green" id="a4"></div><div class="meta">quanto custou cada pessoa que assistiu</div></div>
-      <div class="kpi"><div class="lbl">Taxa de visualização</div><div class="val" id="a5"></div><div class="meta">de cada 100 exibições, quantas viraram view</div></div>
-      <div class="kpi"><div class="lbl">Vídeo assistido 100%</div><div class="val" id="a6"></div><div class="meta">média do período</div></div>
+      <div class="kpi"><div class="lbl">Impressões</div><div class="val" id="y1"></div><div class="meta">exibições do anúncio</div></div>
+      <div class="kpi"><div class="lbl">Visualizações</div><div class="val green" id="y2"></div><div class="meta">quem assistiu, não só quem viu passar</div></div>
+      <div class="kpi"><div class="lbl">Assistiu 25%</div><div class="val" id="y3"></div><div class="meta">passou do começo e continuou</div></div>
+      <div class="kpi"><div class="lbl">Assistiu metade</div><div class="val" id="y4"></div><div class="meta">chegou ao meio do vídeo</div></div>
+      <div class="kpi"><div class="lbl">Assistiu 75%</div><div class="val" id="y5"></div><div class="meta">já viu quase tudo</div></div>
+      <div class="kpi"><div class="lbl">Assistiu até o fim</div><div class="val green" id="y6"></div><div class="meta">viu o encarte inteiro</div></div>
     </div>
 
-    <div class="note green" style="margin-top:16px"><b>O que conta como visualização aqui:</b> o YouTube só cobra quando a pessoa assiste pelo menos 30 segundos do anúncio, ou o vídeo inteiro se ele for mais curto, ou clica nele. Isso é o que o Google chama de TrueView. Quem passou o anúncio em 2 segundos aparece em impressões, mas não entra nesta coluna e não é cobrado. Por isso o número de visualizações é sempre menor que o de impressões, e por isso ele é o indicador honesto de quanta gente de fato viu o encarte.</div>
+    <div class="note green" style="margin-top:16px"><b>O que conta como visualização aqui:</b> o YouTube só cobra quando a pessoa assiste pelo menos 30 segundos do anúncio, ou o vídeo inteiro se ele for mais curto, ou clica nele. Quem passou o anúncio em 2 segundos aparece em impressões, mas não entra nesta coluna e não é cobrado. Por isso o número de visualizações é sempre menor que o de impressões, e por isso ele é o indicador honesto de quanta gente de fato viu o encarte.</div>
 
     <div class="card full" style="margin-top:18px">
-      <h3>Investimento e entrega mês a mês</h3>
+      <h3>Até onde as pessoas assistem</h3>
       <div class="h-sub" id="ytaSub"></div>
+      <div class="fnl" id="funilYt"></div>
+    </div>
+
+    <div class="card full" style="margin-top:18px">
+      <h3>Números por mês</h3>
+      <div class="h-sub">Quantas pessoas chegaram a cada parte do vídeo, mês a mês</div>
       <div class="tscroll">
         <table>
           <thead><tr>
-            <th>Mês</th><th class="r">Investimento</th><th class="r">Impressões</th><th class="r">Visualizações</th>
-            <th class="r">Custo por view</th><th class="r">Taxa de view</th><th class="r">Assistiu 100%</th>
+            <th>Mês</th><th class="r">Impressões</th><th class="r">Visualizações</th><th class="r">Assistiu 25%</th>
+            <th class="r">Assistiu metade</th><th class="r">Assistiu 75%</th><th class="r">Assistiu até o fim</th>
           </tr></thead>
           <tbody id="tbYta"></tbody>
         </table>
       </div>
+      <div class="legenda">mil = milhares &nbsp;·&nbsp; mi = milhões</div>
     </div>
-
 
     <div class="card full" style="margin-top:18px">
-      <h3>Até onde as pessoas assistem</h3>
-      <div class="h-sub">De todas as exibições do anúncio, quantas chegaram a cada parte do vídeo</div>
-      <div class="fnl" id="funilYt"></div>
+      <h3>Taxas por mês</h3>
+      <div class="h-sub">As mesmas etapas em percentual sobre as impressões do mês</div>
+      <div class="tscroll">
+        <table>
+          <thead><tr>
+            <th>Mês</th><th class="r">Taxa de visualização</th><th class="r">Assistiu 25%</th>
+            <th class="r">Assistiu metade</th><th class="r">Assistiu 75%</th><th class="r">Assistiu até o fim</th>
+          </tr></thead>
+          <tbody id="tbYtaPct"></tbody>
+        </table>
+      </div>
     </div>
-
   </div>
 
 <div id="stub" style="display:none"><div id="c2sub"></div><div id="detSub"></div><div id="tbDet"></div><div id="insDet"></div><div id="acSub"></div><div id="spBox"></div><div id="tbRef"></div><div id="destaques"></div><div id="passos"></div><div id="conc"></div></div>
@@ -400,16 +416,12 @@ const GA = {
 const YT = {
   total:[2410364,1880596,1997332,2195325,1868306,1889900,2102597,1712361],
   ads:  [929109,757672,863486,959105,824030,861286,921449,754066],
-  custo:[18162.17,13779.51,16595.26,17986.34,16601.88,17115.25,16779.05,14374.91],
   impr: [2480293,1938773,2055127,2265132,1927879,1942905,2170007,1759463],
   v25:  [57.92,57.45,62.49,64.52,63.43,63.42,61.78,58.81],
   v50:  [43.11,44.36,48.05,48.81,49.39,50.16,48.49,47.18],
   v75:  [38.10,39.56,43.18,43.68,44.55,45.46,43.75,42.66],
   v100: [34.63,36.12,39.59,40.01,40.94,41.89,40.42,39.27]
 };
-const brl = n => 'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
-const brl0 = n => 'R$ '+Math.round(n).toLocaleString('pt-BR');
-const cpv = n => 'R$ '+n.toFixed(3).replace('.',',');
 
 const GK = Object.keys(GA);
 const UK = Object.keys(UNITS);
@@ -417,11 +429,11 @@ const K = ['views','fb','alc','int','cli','vis','seg'];
 const ALL = {}; K.forEach(k=>ALL[k]=M.map((_,i)=>UK.reduce((s,u)=>s+UNITS[u][k][i],0)));
 
 let sel = M.map((_,i)=>i);
-let unit = UK[0];
+let unit = 'all';
 let media = false;
 const N = v => media ? v/sel.length : v;
 const D = () => UNITS[unit] ? UNITS[unit] : ALL;
-const uName = () => UNITS[unit] ? UNITS[unit].nome : 'Consolidado';
+const uName = () => UNITS[unit] ? UNITS[unit].nome : 'Grupo Royal';
 const uCor = () => UNITS[unit] ? UNITS[unit].cor : '#00CA9E';
 
 const fmt = n => {
@@ -494,8 +506,8 @@ M.forEach((m,i)=>{
 document.getElementById('btnMedia').onclick=()=>{ media=!media; render(); };
 const uchipsEl = document.getElementById('uchips');
 const MODOS=['ga','yta'];
-[...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
-  const b=document.createElement('button'); b.className='uchip'+(k===UK[0]?' active':'')+(k==='ga'?' ecom':''); b.textContent=n; b.dataset.u=k;
+[['all','Grupo Royal'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
+  const b=document.createElement('button'); b.className='uchip'+(k==='all'?' active':'')+(k==='ga'?' ecom':'')+(k==='all'?' grupo':''); b.textContent=n; b.dataset.u=k;
   b.onclick=()=>{ unit=k; render(); };
   uchipsEl.appendChild(b);
 });
@@ -547,9 +559,9 @@ function render(){
   document.getElementById('k5').textContent = fmt(N(o.vis));
   document.getElementById('k5b').textContent = fmt(o.vis/sel.length);
   document.getElementById('k6').textContent = fmt(N(o.seg));
-  document.getElementById('k6b').textContent = UNITS[unit].handle;
+  document.getElementById('k6b').textContent = UNITS[unit] ? UNITS[unit].handle : 'os cinco perfis somados';
   document.getElementById('k5m').style.display = media ? 'none' : '';
-  const segBase = UNITS[unit].segBase;
+  const segBase = UNITS[unit] ? UNITS[unit].segBase : UK.reduce((a,u)=>a+UNITS[u].segBase,0);
   document.getElementById('k7').textContent = fmt(segBase);
   document.getElementById('k7b').textContent = 'crescimento de '+p1(o.seg/segBase*100)+'% no período';
 
@@ -659,35 +671,42 @@ function renderGA(L){
 
 /* ---------- YouTube Ads ---------- */
 function renderYTA(L){
-  const S=(arr)=>sel.reduce((a,i)=>a+arr[i],0);
-  const custo=S(YT.custo), impr=S(YT.impr), views=S(YT.ads);
-  const v100=sel.reduce((a,i)=>a+YT.v100[i]*YT.ads[i],0)/(views||1);
-  setT('a1', brl0(N(custo))); setT('a1b', media ? 'média dos meses selecionados' : 'média de '+brl0(custo/sel.length)+'/mês');
-  setT('a2', fmt(N(views))); setT('a3', fmt(N(impr)));
-  setT('a4', cpv(custo/(views||1)));
-  setT('a5', p1(views/(impr||1)*100)+'%');
-  setT('a6', p1(v100)+'%');
-  setT('ytaSub','Canal royalsupervoce · dados do Google Ads · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', ')));
+  const S=a=>sel.reduce((x,i)=>x+a[i],0);
+  const abs=k=>sel.reduce((x,i)=>x+YT.impr[i]*YT[k][i]/100,0);
+  const impr=S(YT.impr), views=S(YT.ads);
+  const a25=abs('v25'), a50=abs('v50'), a75=abs('v75'), a100=abs('v100');
 
-  set('tbYta', sel.map(i=>{
-    const c=YT.custo[i], im=YT.impr[i], vw=YT.ads[i];
-    return '<tr><td><b>'+ML[i]+'</b></td><td class="r num">'+brl0(c)+'</td><td class="r num">'+fmt(im)+'</td>'+
-      '<td class="r num g">'+fmt(vw)+'</td><td class="r num">'+cpv(c/vw)+'</td>'+
-      '<td class="r num">'+p1(vw/im*100)+'%</td><td class="r num">'+p1(YT.v100[i])+'%</td></tr>';
-  }).join('') + '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+brl0(N(custo))+'</td><td class="r">'+fmt(N(impr))+'</td>'+
-    '<td class="r">'+fmt(N(views))+'</td><td class="r">'+cpv(custo/views)+'</td><td class="r">'+p1(views/impr*100)+'%</td><td class="r">'+p1(v100)+'%</td></tr>');
+  setT('y1', fmt(N(impr))); setT('y2', fmt(N(views)));
+  setT('y3', fmt(N(a25)));  setT('y4', fmt(N(a50)));
+  setT('y5', fmt(N(a75)));  setT('y6', fmt(N(a100)));
+  setT('ytaSub','Canal royalsupervoce · '+(sel.length===M.length?'janeiro a agosto de 2026':L.join(', ')));
 
-  const tx=k=>sel.reduce((a,i)=>a+YT.impr[i]*YT[k][i]/100,0);
   set('funilYt', funilHTML([
-    {lbl:'Exibições do anúncio', d:'o anúncio apareceu na tela', v:N(impr), cor:'#cdf2e8', txt:'#0D0D0D'},
-    {lbl:'Assistiu 25%',    d:'passou do começo e continuou', v:N(tx('v25')),  cor:'#8ee5cd', txt:'#0D0D0D', sm:'das exibições'},
-    {lbl:'Assistiu metade', d:'chegou ao meio do vídeo',      v:N(tx('v50')),  cor:'#4ad8b4', txt:'#0D0D0D', sm:'de quem viu 25%'},
-    {lbl:'Assistiu 75%',    d:'já viu quase tudo',            v:N(tx('v75')),  cor:'#00CA9E', txt:'#0D0D0D', sm:'de quem viu metade'},
-    {lbl:'Assistiu até o fim', d:'viu o encarte inteiro',     v:N(tx('v100')), cor:'#0D0D0D', txt:'#ffffff', sm:'de quem viu 75%'}
+    {lbl:'Impressões',         d:'o anúncio apareceu na tela',   v:N(impr), cor:'#cdf2e8', txt:'#0D0D0D'},
+    {lbl:'Assistiu 25%',       d:'passou do começo e continuou', v:N(a25),  cor:'#8ee5cd', txt:'#0D0D0D', sm:'das impressões'},
+    {lbl:'Assistiu metade',    d:'chegou ao meio do vídeo',      v:N(a50),  cor:'#4ad8b4', txt:'#0D0D0D', sm:'de quem viu 25%'},
+    {lbl:'Assistiu 75%',       d:'já viu quase tudo',            v:N(a75),  cor:'#00CA9E', txt:'#0D0D0D', sm:'de quem viu metade'},
+    {lbl:'Assistiu até o fim', d:'viu o encarte inteiro',        v:N(a100), cor:'#0D0D0D', txt:'#ffffff', sm:'de quem viu 75%'}
   ], 1));
+
+  const c=(v)=>'<td class="r num">'+fmt(N(v))+'</td>';
+  set('tbYta', sel.map(i=>{
+    const im=YT.impr[i];
+    return '<tr><td><b>'+ML[i]+'</b></td>'+c(im)+'<td class="r num g">'+fmt(N(YT.ads[i]))+'</td>'+
+      c(im*YT.v25[i]/100)+c(im*YT.v50[i]/100)+c(im*YT.v75[i]/100)+
+      '<td class="r num g">'+fmt(N(im*YT.v100[i]/100))+'</td></tr>';
+  }).join('') + '<tr class="tot"><td>'+(media?'Média/mês':'Total')+'</td><td class="r">'+fmt(N(impr))+'</td>'+
+    '<td class="r">'+fmt(N(views))+'</td><td class="r">'+fmt(N(a25))+'</td><td class="r">'+fmt(N(a50))+'</td>'+
+    '<td class="r">'+fmt(N(a75))+'</td><td class="r">'+fmt(N(a100))+'</td></tr>');
+
+  set('tbYtaPct', sel.map(i=>
+    '<tr><td><b>'+ML[i]+'</b></td><td class="r num g">'+p1(YT.ads[i]/YT.impr[i]*100)+'%</td>'+
+    '<td class="r num">'+p1(YT.v25[i])+'%</td><td class="r num">'+p1(YT.v50[i])+'%</td>'+
+    '<td class="r num">'+p1(YT.v75[i])+'%</td><td class="r num g">'+p1(YT.v100[i])+'%</td></tr>'
+  ).join('') + '<tr class="tot"><td>Período</td><td class="r">'+p1(views/impr*100)+'%</td>'+
+    '<td class="r">'+p1(a25/impr*100)+'%</td><td class="r">'+p1(a50/impr*100)+'%</td>'+
+    '<td class="r">'+p1(a75/impr*100)+'%</td><td class="r">'+p1(a100/impr*100)+'%</td></tr>');
 }
-
-
 
 render();
 </script>
