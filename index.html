@@ -127,7 +127,12 @@ tr.tot:hover td{background:var(--panel2)}
 .p3{background:var(--amber-soft);color:var(--u3)}
 .p4{background:#f4e9fb;color:var(--u4)}
 .p5{background:#fdeee7;color:#c74f1c}
-.legenda{font-size:11px;color:var(--mute);margin-top:12px;letter-spacing:.3px}
+.legenda{background:var(--panel2);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-top:28px}
+.legenda .t{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.4px;color:var(--mute);margin-bottom:12px}
+.legenda .itens{display:flex;gap:34px;flex-wrap:wrap}
+.legenda .it{font-size:13px;color:#374151;line-height:1.5}
+.legenda .it b{font-size:17px;font-weight:800;color:var(--green-d);margin-right:8px;font-variant-numeric:tabular-nums}
+.legenda .it span{color:var(--mute);font-size:11.5px;display:block;margin-top:2px}
 .foot{text-align:center;color:var(--mute);font-size:11px;margin-top:34px;letter-spacing:.5px}
 .foot b{color:var(--green-d)}
 .conc{background:var(--ink);border-radius:14px;padding:22px 24px;margin-top:18px}
@@ -179,7 +184,7 @@ tr.tot:hover td{background:var(--panel2)}
     <button class="tab" data-v="uni">Comparativo entre Perfis</button>
     <button class="tab" data-v="comp">Comparativo Mensal</button>
     <button class="tab" data-v="ga">E-commerce</button>
-    <button class="tab" data-v="yta">YouTube Ads</button>
+    <button class="tab" data-v="yta">YouTube</button>
   </div>
 
   <!-- VISAO GERAL -->
@@ -317,7 +322,6 @@ tr.tot:hover td{background:var(--panel2)}
           <tbody id="tbYta"></tbody>
         </table>
       </div>
-      <div class="legenda">mil = milhares &nbsp;·&nbsp; mi = milhões</div>
     </div>
 
     <div class="card full" style="margin-top:18px">
@@ -336,6 +340,14 @@ tr.tot:hover td{background:var(--panel2)}
   </div>
 
 <div id="stub" style="display:none"><div id="c2sub"></div><div id="detSub"></div><div id="tbDet"></div><div id="insDet"></div><div id="acSub"></div><div id="spBox"></div><div id="tbRef"></div><div id="destaques"></div><div id="passos"></div><div id="conc"></div></div>
+  <div class="legenda">
+    <div class="t">Como ler os números abreviados</div>
+    <div class="itens">
+      <div class="it"><b>mil</b> milhares<span>Exemplo: 757,7 mil = 757.700</span></div>
+      <div class="it"><b>mi</b> milhões<span>Exemplo: 16,5 mi = 16.500.000</span></div>
+    </div>
+  </div>
+
   <div class="foot">Relatório produzido pela <b>keepads</b> · Dados: Meta Business Suite, Google Analytics, Google Ads e YouTube Studio · Janeiro a Agosto de 2026 · Valores de alcance conforme arredondamento da própria plataforma</div>
 </div>
 
@@ -506,7 +518,7 @@ M.forEach((m,i)=>{
 document.getElementById('btnMedia').onclick=()=>{ media=!media; render(); };
 const uchipsEl = document.getElementById('uchips');
 const MODOS=['ga','yta'];
-[['all','Grupo Royal'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube Ads']].forEach(([k,n])=>{
+[['all','Grupo Royal'],...UK.map(u=>[u,UNITS[u].nome]),['ga','E-commerce (site)'],['yta','YouTube']].forEach(([k,n])=>{
   const b=document.createElement('button'); b.className='uchip'+(k==='all'?' active':'')+(k==='ga'?' ecom':'')+(k==='all'?' grupo':''); b.textContent=n; b.dataset.u=k;
   b.onclick=()=>{ unit=k; render(); };
   uchipsEl.appendChild(b);
